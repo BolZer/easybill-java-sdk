@@ -1,0 +1,4 @@
+# easybill-java-sdk
+[![Generic badge](https://img.shields.io/badge/Version-1.0.0-important.svg)]()
+
+`easybill-java-sdk` is a library to work with the easybill REST API (https://www.easybill.de/api/) written in pure JAVA.
