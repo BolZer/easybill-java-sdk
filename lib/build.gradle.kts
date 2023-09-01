@@ -15,6 +15,9 @@ repositories {
 dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+    compileOnly("org.checkerframework:checker-qual:3.36.0")
+    testCompileOnly("org.checkerframework:checker-qual:3.36.0")
     checkerFramework("org.checkerframework:checker:3.36.0")
 }
 
