@@ -1,5 +1,8 @@
+version = "1.0"
+
 plugins {
-    `java-library`
+    id("java-library")
+    id("com.diffplug.spotless") version "6.20.0"
 }
 
 repositories {
@@ -20,3 +23,27 @@ java {
 tasks.named<Test>("test") {
     useJUnitPlatform()
 }
+
+tasks.jar {
+    manifest {
+        attributes(mapOf(
+            "Implementation-Title" to project.name,
+            "Implementation-Version" to project.version
+        ))
+    }
+}
+
+spotless {
+    java {
+        importOrder()
+        prettier(mapOf(
+            "prettier" to "2.8.8",
+            "prettier-plugin-java" to "2.2.0"
+        )).config(mapOf(
+            "parser" to "java",
+            "tabWidth" to 4,
+        ))
+        removeUnusedImports()
+    }
+}
+
