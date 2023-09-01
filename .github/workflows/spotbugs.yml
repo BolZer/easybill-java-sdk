@@ -1,4 +1,4 @@
-name: "Tests (JDK 20)"
+name: "Spotbugs"
 
 on: [ pull_request ]
 
@@ -20,5 +20,8 @@ jobs:
         with:
           gradle-version: 8.2.1
 
-      - name: Run tests with gradle wrapper
-        run: ./gradlew test
+      - name: Main Spotbugs with Gradle Wrapper
+        run: ./gradlew spotbugsMain
+
+      - name: Test Spotbugs with Gradle Wrapper
+        run: ./gradlew spotbugsTest

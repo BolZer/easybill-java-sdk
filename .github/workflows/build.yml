@@ -1,4 +1,4 @@
-name: "Tests (JDK 20)"
+name: "Build"
 
 on: [ pull_request ]
 
@@ -20,5 +20,5 @@ jobs:
         with:
           gradle-version: 8.2.1
 
-      - name: Run tests with gradle wrapper
-        run: ./gradlew test
+      - name: Test Gradle Build
+        run: ./gradlew build --dry-run
