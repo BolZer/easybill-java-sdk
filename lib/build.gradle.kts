@@ -3,6 +3,7 @@ version = "1.0"
 plugins {
     id("java-library")
     id("com.diffplug.spotless") version "6.20.0"
+    id("com.github.spotbugs") version "5.1.0"
 }
 
 repositories {
