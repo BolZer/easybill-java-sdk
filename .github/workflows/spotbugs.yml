@@ -1,4 +1,4 @@
-name: "Spotbug"
+name: "Spotbugs"
 
 on: [ pull_request ]
 
