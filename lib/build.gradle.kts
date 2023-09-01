@@ -13,6 +13,14 @@ repositories {
 }
 
 dependencies {
+    implementation("com.squareup.okhttp3:okhttp:4.11.0")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.15.2")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.2")
+    implementation("org.javatuples:javatuples:1.2")
+    implementation("org.apache.commons:commons-lang3:3.13.0")
+
+    testImplementation("org.assertj:assertj-core:3.24.2")
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.11.0")
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
