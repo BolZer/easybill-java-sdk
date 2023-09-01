@@ -1,6 +1,7 @@
 package com.github.bolzer.easybill_java_sdk.fixtures.documents;
 
 import com.github.bolzer.easybill_java_sdk.fixtures.Fixture;
+import java.nio.charset.StandardCharsets;
 import okhttp3.mockwebserver.MockResponse;
 import okio.Buffer;
 import org.checkerframework.checker.nullness.qual.NonNull;
@@ -23,6 +24,8 @@ public final class DocumentDownloadPdfFixture implements Fixture {
     public @NonNull MockResponse getResponse() {
         return new MockResponse()
             .setResponseCode(201)
-            .setBody((new Buffer()).write("Pdf".getBytes()));
+            .setBody(
+                (new Buffer()).write("Pdf".getBytes(StandardCharsets.UTF_8))
+            );
     }
 }
