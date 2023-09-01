@@ -2,6 +2,9 @@ package com.github.bolzer.easybill_java_sdk.requests;
 
 import com.github.bolzer.easybill_java_sdk.contracts.QueryRequest;
 import com.github.bolzer.easybill_java_sdk.enums.ItemType;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 import lombok.Builder;
 import lombok.Getter;
 import org.checkerframework.checker.index.qual.Positive;
@@ -9,10 +12,6 @@ import org.checkerframework.checker.initialization.qual.Initialized;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.common.value.qual.IntRange;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 
 @Builder
 @Getter

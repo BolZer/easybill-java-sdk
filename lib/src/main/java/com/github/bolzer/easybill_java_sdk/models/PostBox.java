@@ -6,11 +6,10 @@ import com.github.bolzer.easybill_java_sdk.enums.DocumentFileType;
 import com.github.bolzer.easybill_java_sdk.enums.PostBoxPostSendType;
 import com.github.bolzer.easybill_java_sdk.enums.PostBoxStatus;
 import com.github.bolzer.easybill_java_sdk.enums.PostBoxType;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public record PostBox(
     @JsonProperty("id") long id,

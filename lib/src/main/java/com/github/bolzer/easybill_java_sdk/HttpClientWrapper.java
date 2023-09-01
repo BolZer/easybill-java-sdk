@@ -14,17 +14,16 @@ import com.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
 import com.github.bolzer.easybill_java_sdk.exceptions.EasybillRestServerException;
 import com.github.bolzer.easybill_java_sdk.interceptors.BearerAuthorizationInterceptor;
 import com.github.bolzer.easybill_java_sdk.interceptors.UserAgentInterceptor;
-import okhttp3.*;
-import okio.BufferedSource;
-import org.checkerframework.checker.initialization.qual.Initialized;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
-
 import java.io.IOException;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import okhttp3.*;
+import okio.BufferedSource;
+import org.checkerframework.checker.initialization.qual.Initialized;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class HttpClientWrapper implements HttpClient {
 

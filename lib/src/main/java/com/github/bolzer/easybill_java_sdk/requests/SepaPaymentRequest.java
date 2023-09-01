@@ -3,13 +3,12 @@ package com.github.bolzer.easybill_java_sdk.requests;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.github.bolzer.easybill_java_sdk.enums.SepaLocalInstrumentType;
 import com.github.bolzer.easybill_java_sdk.enums.SepaSequenceType;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class SepaPaymentRequest {
 

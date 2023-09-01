@@ -2,10 +2,9 @@ package com.github.bolzer.easybill_java_sdk.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.time.LocalDateTime;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
-
-import java.time.LocalDateTime;
 
 public record Stock(
     @JsonProperty("id") long id,

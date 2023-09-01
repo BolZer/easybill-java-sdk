@@ -2,15 +2,14 @@ package com.github.bolzer.easybill_java_sdk.requests;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.github.bolzer.easybill_java_sdk.enums.*;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
-import org.checkerframework.common.value.qual.IntRange;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.common.value.qual.IntRange;
 
 public final class CustomerRequest {
 

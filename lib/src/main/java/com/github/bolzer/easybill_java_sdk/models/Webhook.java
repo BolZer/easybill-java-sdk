@@ -3,11 +3,10 @@ package com.github.bolzer.easybill_java_sdk.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.bolzer.easybill_java_sdk.enums.WebhookContentType;
 import com.github.bolzer.easybill_java_sdk.enums.WebhookEvent;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
-
 import java.util.Collections;
 import java.util.List;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public record Webhook(
     @JsonProperty("content_type") @NonNull WebhookContentType contentType,

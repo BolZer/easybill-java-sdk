@@ -2,9 +2,8 @@ package com.github.bolzer.easybill_java_sdk.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.bolzer.easybill_java_sdk.enums.ServiceDateType;
-import org.checkerframework.checker.nullness.qual.Nullable;
-
 import java.time.LocalDate;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public record ServiceDate(
     @JsonProperty("type") ServiceDateType type,

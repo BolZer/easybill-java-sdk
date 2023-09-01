@@ -1,11 +1,10 @@
 package com.github.bolzer.easybill_java_sdk.requests;
 
 import com.fasterxml.jackson.annotation.JsonValue;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
-
 import java.util.HashMap;
 import java.util.Map;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class PositionGroupRequest {
 

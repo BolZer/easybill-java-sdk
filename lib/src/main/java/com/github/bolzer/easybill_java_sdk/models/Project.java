@@ -4,10 +4,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.bolzer.easybill_java_sdk.enums.BudgetNotifyFrequency;
 import com.github.bolzer.easybill_java_sdk.enums.ProjectStatus;
+import java.time.LocalDate;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
-
-import java.time.LocalDate;
 
 public record Project(
     @JsonProperty("id") long id,

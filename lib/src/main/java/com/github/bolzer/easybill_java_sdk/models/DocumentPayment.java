@@ -2,9 +2,8 @@ package com.github.bolzer.easybill_java_sdk.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.checkerframework.checker.nullness.qual.NonNull;
-
 import java.time.LocalDate;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 public record DocumentPayment(
     @JsonProperty("id") long id,

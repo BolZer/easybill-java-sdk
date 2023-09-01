@@ -1,11 +1,10 @@
 package com.github.bolzer.easybill_java_sdk.interceptors;
 
+import java.io.IOException;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.checkerframework.checker.nullness.qual.NonNull;
-
-import java.io.IOException;
 
 public final class BearerAuthorizationInterceptor implements Interceptor {
 

@@ -2,15 +2,14 @@ package com.github.bolzer.easybill_java_sdk.requests;
 
 import com.github.bolzer.easybill_java_sdk.contracts.QueryRequest;
 import com.github.bolzer.easybill_java_sdk.enums.DocumentType;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Singular;
 import org.checkerframework.checker.initialization.qual.Initialized;
 import org.checkerframework.checker.nullness.qual.NonNull;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Builder
 @Getter
