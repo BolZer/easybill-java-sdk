@@ -2,6 +2,7 @@ package com.github.bolzer.easybill_java_sdk.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -103,7 +104,8 @@ public record Customer(
     @JsonProperty("foreign_supplier_number")
     @NonNull
     String foreignSupplierNumber
-) {
+)
+    implements Serializable {
     public Customer(
         @JsonProperty("acquire_options") int acquireOptions,
         @JsonProperty(
