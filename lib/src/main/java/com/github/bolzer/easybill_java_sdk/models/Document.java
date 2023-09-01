@@ -3,6 +3,7 @@ package com.github.bolzer.easybill_java_sdk.models;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.bolzer.easybill_java_sdk.enums.*;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -33,7 +34,10 @@ public record Document(
     LocalDateTime createdAt,
     @JsonProperty("currency") @NonNull String currency,
     @JsonProperty("customer_id") @Nullable Long customerId,
-    @JsonProperty("customer_snapshot") @Nullable Customer customerSnapshot,
+    @SuppressFBWarnings
+    @JsonProperty("customer_snapshot")
+    @Nullable
+    Customer customerSnapshot,
     @JsonProperty("discount") @Nullable String discount,
     @JsonProperty("discount_type") @Nullable DiscountType discountType,
     @JsonProperty("document_date")

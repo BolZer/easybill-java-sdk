@@ -2,6 +2,7 @@ package com.github.bolzer.easybill_java_sdk;
 
 import com.github.bolzer.easybill_java_sdk.contracts.HttpClient;
 import com.github.bolzer.easybill_java_sdk.resources.*;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 public final class Client {
@@ -10,6 +11,7 @@ public final class Client {
     public static final String USER_AGENT = "easybill-JAVA-REST-SDK-0.1";
 
     @NonNull
+    @SuppressFBWarnings
     public static String BASE_URL = "https://api.easybill.de/rest/v1";
 
     @NonNull
