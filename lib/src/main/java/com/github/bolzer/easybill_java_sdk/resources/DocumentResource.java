@@ -1,0 +1,118 @@
+package com.github.bolzer.easybill_java_sdk.resources;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.github.bolzer.easybill_java_sdk.contracts.HttpClient;
+import com.github.bolzer.easybill_java_sdk.enums.DocumentSendType;
+import com.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
+import com.github.bolzer.easybill_java_sdk.models.Document;
+import com.github.bolzer.easybill_java_sdk.requests.DocumentListQueryRequest;
+import com.github.bolzer.easybill_java_sdk.requests.DocumentRequest;
+import com.github.bolzer.easybill_java_sdk.requests.DocumentSendRequest;
+import com.github.bolzer.easybill_java_sdk.responses.PaginatedResponse;
+import org.checkerframework.checker.index.qual.Positive;
+import org.checkerframework.checker.nullness.qual.NonNull;
+
+public final class DocumentResource {
+
+    @NonNull
+    public static final String RESOURCE_URL = "/documents";
+
+    @NonNull
+    private final HttpClient httpClient;
+
+    public DocumentResource(@NonNull HttpClient httpClient) {
+        this.httpClient = httpClient;
+    }
+
+    public @NonNull PaginatedResponse<Document> fetchDocuments(
+        DocumentListQueryRequest documentListRequest
+    ) throws EasybillRestException {
+        return this.httpClient.doGetRequestAndMarshalJsonInto(
+                RESOURCE_URL,
+                documentListRequest,
+                new TypeReference<>() {}
+            );
+    }
+
+    public @NonNull Document fetchDocument(@Positive long documentId)
+        throws EasybillRestException {
+        return this.httpClient.doGetRequestAndMarshalJsonInto(
+                RESOURCE_URL + "/" + documentId,
+                null,
+                new TypeReference<>() {}
+            );
+    }
+
+    public @NonNull Document createDocument(
+        @NonNull DocumentRequest documentRequest
+    ) throws EasybillRestException {
+        return this.httpClient.doPostRequestAndMarshalJsonInto(
+                RESOURCE_URL,
+                documentRequest,
+                new TypeReference<>() {}
+            );
+    }
+
+    public @NonNull Document updateDocument(
+        @Positive long documentId,
+        @NonNull DocumentRequest documentUpdateRequest
+    ) throws EasybillRestException {
+        return this.httpClient.doPutRequestAndMarshalJsonInto(
+                RESOURCE_URL + "/" + documentId,
+                documentUpdateRequest,
+                new TypeReference<>() {}
+            );
+    }
+
+    public @NonNull Document finalizeDocument(
+        @Positive long documentId,
+        @NonNull DocumentRequest documentUpdateRequest
+    ) throws EasybillRestException {
+        return this.httpClient.doPutRequestAndMarshalJsonInto(
+                RESOURCE_URL + "/" + documentId + "/done",
+                documentUpdateRequest,
+                new TypeReference<>() {}
+            );
+    }
+
+    public void deleteDocument(@Positive long documentId)
+        throws EasybillRestException {
+        this.httpClient.doDeleteRequest(RESOURCE_URL + "/" + documentId);
+    }
+
+    public void cancelDocument(@Positive long documentId)
+        throws EasybillRestException {
+        this.httpClient.doPostRequestWithoutPayload(
+                RESOURCE_URL + "/" + documentId + "/cancel"
+            );
+    }
+
+    public void sendDocument(
+        @Positive long documentId,
+        @NonNull DocumentSendType documentSendType,
+        @NonNull DocumentSendRequest documentSendRequest
+    ) throws EasybillRestException {
+        this.httpClient.doPostRequestWithPayload(
+                RESOURCE_URL +
+                "/" +
+                documentId +
+                "/send/" +
+                documentSendType.toString().toLowerCase(),
+                documentSendRequest
+            );
+    }
+
+    public byte[] downloadDocumentAsPdf(@Positive long documentId)
+        throws EasybillRestException {
+        return this.httpClient.downloadFile(
+                RESOURCE_URL + "/" + documentId + "/pdf"
+            );
+    }
+
+    public byte[] downloadDocumentAsJpg(@Positive long documentId)
+        throws EasybillRestException {
+        return this.httpClient.downloadFile(
+                RESOURCE_URL + "/" + documentId + "/jpg"
+            );
+    }
+}
