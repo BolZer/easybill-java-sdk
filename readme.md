@@ -9,7 +9,9 @@ This library is available on Maven Central
 ### Gradle
 
 #### Kotlin DSL
-> implementation("com.github.bolzer:easybill_java_sdk:1.0.0")
+```
+implementation("com.github.bolzer:easybill_java_sdk:1.0.0")
+```
 
 ### Maven
 ```
