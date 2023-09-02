@@ -1,3 +1,5 @@
+import java.net.URI
+
 version = "0.1"
 
 plugins {
@@ -44,6 +46,17 @@ publishing {
                     developerConnection.set("scm:git:ssh://github.com/BolZer/easybill-java-sdk.git")
                     url.set("https://github.com/BolZer/easybill-java-sdk")
                 }
+            }
+        }
+    }
+
+    repositories{
+        maven {
+            name = "OSSRH"
+            url = URI("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+            credentials {
+                username = System.getenv("OSSRH_USERNAME")
+                password = System.getenv("OSSRH_PASSWORD")
             }
         }
     }
