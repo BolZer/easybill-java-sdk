@@ -22,6 +22,6 @@
         <module name="easybill-java-sdk.lib.test" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="20" />
+    <bytecodeTargetLevel target="17" />
   </component>
 </project>
