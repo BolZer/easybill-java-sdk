@@ -2,6 +2,7 @@ version = "0.1"
 
 plugins {
     id("java-library")
+    id("maven-publish")
     id("com.diffplug.spotless") version "6.20.0"
     id("com.github.spotbugs") version "5.1.0"
     id("org.checkerframework") version "0.6.30"
@@ -10,6 +11,42 @@ plugins {
 
 repositories {
     mavenCentral()
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = "io.github.bolzer"
+            artifactId = "easybill-java-sdk"
+            version = "0.1"
+
+            from(components["java"])
+
+            pom {
+                name.set("easybill-java-sdk")
+                description.set("A SDK to work with the easybill REST API")
+                url.set("https://github.com/BolZer/easybill-java-sdk")
+                licenses {
+                    license {
+                        name.set("The Apache License, Version 2.0")
+                        url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+                    }
+                }
+                developers {
+                    developer {
+                        id.set("BolZer")
+                        name.set("Jan Nöhles")
+                        email.set("noehles.jan@gmail.com")
+                    }
+                }
+                scm {
+                    connection.set("scm:git:git://github.com/BolZer/easybill-java-sdk.git")
+                    developerConnection.set("scm:git:ssh://github.com/BolZer/easybill-java-sdk.git")
+                    url.set("https://github.com/BolZer/easybill-java-sdk")
+                }
+            }
+        }
+    }
 }
 
 dependencies {
