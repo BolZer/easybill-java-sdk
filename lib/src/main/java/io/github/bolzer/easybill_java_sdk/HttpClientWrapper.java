@@ -337,7 +337,8 @@ public final class HttpClientWrapper implements HttpClient {
         throw new EasybillBadRequestException(
             (int) errorResponse.getOrDefault("code", 0),
             (List<String>) errorResponse.getOrDefault("arguments", List.of()),
-            (String) errorResponse.getOrDefault("message", "")
+            (String) errorResponse.getOrDefault("message", ""),
+            response.request()
         );
     }
 
@@ -348,7 +349,8 @@ public final class HttpClientWrapper implements HttpClient {
     private void handleGenericClientError(Response response)
         throws EasybillRestClientException {
         throw new EasybillRestClientException(
-            "received status code: " + response.code()
+            "received status code: " + response.code(),
+            response.request()
         );
     }
 }

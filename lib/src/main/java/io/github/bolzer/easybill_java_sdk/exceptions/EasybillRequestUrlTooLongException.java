@@ -1,5 +1,6 @@
 package io.github.bolzer.easybill_java_sdk.exceptions;
 
+import okhttp3.Request;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 public final class EasybillRequestUrlTooLongException
@@ -7,8 +8,8 @@ public final class EasybillRequestUrlTooLongException
 
     public EasybillRequestUrlTooLongException(
         @NonNull String message,
-        @NonNull Throwable previous
+        @NonNull Request request
     ) {
-        super(message, previous);
+        super(message, request);
     }
 }
