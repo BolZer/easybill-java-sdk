@@ -94,7 +94,7 @@ public final class HttpClientWrapper implements HttpClient {
                 throw new EasybillRestException("request failed");
             }
         } catch (JsonProcessingException e) {
-            throw new EasybillRestException("request failed");
+            throw new EasybillRestException("failed processing json");
         }
     }
 
@@ -159,7 +159,7 @@ public final class HttpClientWrapper implements HttpClient {
                     typeReferenceOfReturnValue
                 );
         } catch (JsonProcessingException jsonProcessingException) {
-            throw new EasybillRestException("request failed");
+            throw new EasybillRestException("failed processing json");
         }
     }
 
@@ -183,7 +183,7 @@ public final class HttpClientWrapper implements HttpClient {
                     typeReferenceOfReturnValue
                 );
         } catch (JsonProcessingException jsonProcessingException) {
-            throw new EasybillRestException("request failed");
+            throw new EasybillRestException("failed processing json");
         }
     }
 
