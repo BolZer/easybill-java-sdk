@@ -5,6 +5,7 @@ version = "0.1"
 plugins {
     id("java-library")
     id("maven-publish")
+    id("signing")
     id("com.diffplug.spotless") version "6.20.0"
     id("com.github.spotbugs") version "5.1.0"
     id("org.checkerframework") version "0.6.30"
@@ -47,6 +48,13 @@ publishing {
                     url.set("https://github.com/BolZer/easybill-java-sdk")
                 }
             }
+        }
+
+        signing{
+            val gpgSigningKey = System.getenv("GPG_SIGNING_KEY")
+            val gpgSigningPassword = System.getenv("GPG_SIGNING_PASSWORD")
+            useInMemoryPgpKeys(gpgSigningKey, gpgSigningPassword)
+            sign(publishing.publications["maven"])
         }
     }
 
