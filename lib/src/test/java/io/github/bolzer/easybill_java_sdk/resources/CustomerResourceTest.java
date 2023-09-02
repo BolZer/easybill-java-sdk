@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import io.github.bolzer.easybill_java_sdk.Client;
 import io.github.bolzer.easybill_java_sdk.EasybillRestClientTestcase;
+import io.github.bolzer.easybill_java_sdk.exceptions.EasybillBadRequestException;
 import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
 import io.github.bolzer.easybill_java_sdk.fixtures.customers.*;
 import io.github.bolzer.easybill_java_sdk.models.Customer;
@@ -60,6 +61,25 @@ public final class CustomerResourceTest extends EasybillRestClientTestcase {
             );
 
         assertThat(response.lastName()).isEqualTo("something");
+    }
+
+    @Test
+    public void testCreateCustomerFail() throws EasybillRestException {
+        Client client = bootstrapMockWebServerAndReturnClient(
+            List.of(new CustomerCreateFailFixture())
+        );
+
+        try {
+            client
+                .getCustomerResource()
+                .createCustomer(CustomerRequest.builder().build());
+        } catch (EasybillBadRequestException exception) {
+            assertThat(exception.getInternalErrorCode()).isEqualTo(20000);
+            assertThat(exception.getArguments()).contains("last_name");
+            assertThat(exception.getArguments()).contains("company_name");
+            assertThat(exception.getMessage())
+                .contains("Bitte füllen Sie alle Felder aus.");
+        }
     }
 
     @Test

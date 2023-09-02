@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.github.bolzer.easybill_java_sdk.contracts.HttpClient;
 import io.github.bolzer.easybill_java_sdk.contracts.QueryRequest;
+import io.github.bolzer.easybill_java_sdk.exceptions.EasybillBadRequestException;
 import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestClientException;
 import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
 import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestServerException;
@@ -17,6 +18,7 @@ import io.github.bolzer.easybill_java_sdk.interceptors.UserAgentInterceptor;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import okhttp3.*;
@@ -281,27 +283,12 @@ public final class HttpClientWrapper implements HttpClient {
         final int statusCode = response.code();
 
         if (statusCode >= 400 && statusCode <= 499) {
-            /*switch (statusCode){
-                case 400 -> this.handleBadRequest();
+            switch (statusCode) {
+                case 400 -> this.handleBadRequest(response);
                 case 404 -> this.handleNotFound();
                 case 429 -> this.handleTooManyRequests();
-                default -> this.handleGenericClientError();
-            }*/
-
-            Map<String, Object> errorResponse =
-                this.readResponseBodyAndMarshalToType(
-                        response,
-                        new TypeReference<HashMap<String, Object>>() {}
-                    );
-
-            throw new EasybillRestClientException(
-                "received status code: " +
-                statusCode +
-                ". internal error code: " +
-                errorResponse.get("code") +
-                ". error: " +
-                errorResponse.get("message")
-            );
+                default -> this.handleGenericClientError(response);
+            }
         }
 
         if (statusCode >= 500 && statusCode <= 599) {
@@ -339,11 +326,29 @@ public final class HttpClientWrapper implements HttpClient {
         }
     }
 
-    private void handleBadRequest() {}
+    private void handleBadRequest(Response response)
+        throws EasybillBadRequestException {
+        Map<String, Object> errorResponse =
+            this.readResponseBodyAndMarshalToType(
+                    response,
+                    new TypeReference<HashMap<String, Object>>() {}
+                );
+
+        throw new EasybillBadRequestException(
+            (int) errorResponse.getOrDefault("code", 0),
+            (List<String>) errorResponse.getOrDefault("arguments", List.of()),
+            (String) errorResponse.getOrDefault("message", "")
+        );
+    }
 
     private void handleNotFound() {}
 
     private void handleTooManyRequests() {}
 
-    private void handleGenericClientError() {}
+    private void handleGenericClientError(Response response)
+        throws EasybillRestClientException {
+        throw new EasybillRestClientException(
+            "received status code: " + response.code()
+        );
+    }
 }
