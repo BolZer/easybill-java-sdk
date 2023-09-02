@@ -1,4 +1,4 @@
-version = "1.0"
+version = "0.1"
 
 plugins {
     id("java-library")
@@ -30,7 +30,7 @@ dependencies {
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(20))
+        languageVersion.set(JavaLanguageVersion.of(17))
     }
 }
 
