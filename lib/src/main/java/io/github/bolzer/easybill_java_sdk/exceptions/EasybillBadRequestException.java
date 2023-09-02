@@ -16,12 +16,13 @@ public final class EasybillBadRequestException
     private final List<@NonNull String> arguments;
 
     public EasybillBadRequestException(
+        int responseStatusCode,
         int internalErrorCode,
         @NonNull List<@NonNull String> arguments,
         @NonNull String message,
         @NonNull Request request
     ) {
-        super(message, request);
+        super(responseStatusCode, message, request);
         this.internalErrorCode = internalErrorCode;
         this.arguments = Collections.unmodifiableList(arguments);
     }

@@ -9,10 +9,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.github.bolzer.easybill_java_sdk.contracts.HttpClient;
 import io.github.bolzer.easybill_java_sdk.contracts.QueryRequest;
-import io.github.bolzer.easybill_java_sdk.exceptions.EasybillBadRequestException;
-import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestClientException;
-import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
-import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestServerException;
+import io.github.bolzer.easybill_java_sdk.exceptions.*;
 import io.github.bolzer.easybill_java_sdk.interceptors.BearerAuthorizationInterceptor;
 import io.github.bolzer.easybill_java_sdk.interceptors.UserAgentInterceptor;
 import java.io.IOException;
@@ -285,14 +282,15 @@ public final class HttpClientWrapper implements HttpClient {
         if (statusCode >= 400 && statusCode <= 499) {
             switch (statusCode) {
                 case 400 -> this.handleBadRequest(response);
-                case 404 -> this.handleNotFound();
-                case 429 -> this.handleTooManyRequests();
+                case 414 -> this.handleUrlTooLong(response);
+                case 429 -> this.handleTooManyRequests(response);
                 default -> this.handleGenericClientError(response);
             }
         }
 
         if (statusCode >= 500 && statusCode <= 599) {
             throw new EasybillRestServerException(
+                statusCode,
                 "received status code: " + statusCode
             );
         }
@@ -335,6 +333,7 @@ public final class HttpClientWrapper implements HttpClient {
                 );
 
         throw new EasybillBadRequestException(
+            response.code(),
             (int) errorResponse.getOrDefault("code", 0),
             (List<String>) errorResponse.getOrDefault("arguments", List.of()),
             (String) errorResponse.getOrDefault("message", ""),
@@ -342,13 +341,33 @@ public final class HttpClientWrapper implements HttpClient {
         );
     }
 
-    private void handleNotFound() {}
+    private void handleUrlTooLong(Response response)
+        throws EasybillRequestUrlTooLongException {
+        throw new EasybillRequestUrlTooLongException(
+            response.code(),
+            "request url is too long",
+            response.request()
+        );
+    }
 
-    private void handleTooManyRequests() {}
+    private void handleTooManyRequests(Response response)
+        throws EasybillTooManyRequestsException {
+        String retryAfterHeaderValue = response.header("Retry-After");
+
+        throw new EasybillTooManyRequestsException(
+            response.code(),
+            Integer.parseInt(
+                retryAfterHeaderValue != null ? retryAfterHeaderValue : ""
+            ),
+            "request limit exceeded",
+            response.request()
+        );
+    }
 
     private void handleGenericClientError(Response response)
         throws EasybillRestClientException {
         throw new EasybillRestClientException(
+            response.code(),
             "received status code: " + response.code(),
             response.request()
         );

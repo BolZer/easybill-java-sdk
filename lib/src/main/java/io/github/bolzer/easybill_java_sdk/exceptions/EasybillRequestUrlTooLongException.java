@@ -7,9 +7,10 @@ public final class EasybillRequestUrlTooLongException
     extends EasybillRestClientException {
 
     public EasybillRequestUrlTooLongException(
+        int responseStatusCode,
         @NonNull String message,
         @NonNull Request request
     ) {
-        super(message, request);
+        super(responseStatusCode, message, request);
     }
 }

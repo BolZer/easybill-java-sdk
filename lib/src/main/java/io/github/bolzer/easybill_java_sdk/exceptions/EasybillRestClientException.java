@@ -14,11 +14,15 @@ public sealed class EasybillRestClientException
 
     private final Request request;
 
+    private final int responseStatusCode;
+
     public EasybillRestClientException(
+        int responseStatusCode,
         @NonNull String message,
         @NonNull Request request
     ) {
         super(message);
         this.request = request;
+        this.responseStatusCode = responseStatusCode;
     }
 }
