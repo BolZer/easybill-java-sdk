@@ -2,6 +2,18 @@ import java.net.URI
 
 version = "0.1"
 
+java {
+    withJavadocJar()
+    withSourcesJar()
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
 plugins {
     id("java-library")
     id("maven-publish")
@@ -12,8 +24,26 @@ plugins {
     id("io.freefair.lombok") version "8.1.0"
 }
 
-repositories {
-    mavenCentral()
+dependencies {
+    implementation("com.squareup.okhttp3:okhttp:4.11.0")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.15.2")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.2")
+    implementation("org.javatuples:javatuples:1.2")
+
+    testImplementation("org.assertj:assertj-core:3.24.2")
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.11.0")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+    compileOnly("org.checkerframework:checker-qual:3.36.0")
+    testCompileOnly("org.checkerframework:checker-qual:3.36.0")
+    checkerFramework("org.checkerframework:checker:3.36.0")
+}
+
+tasks{
+    javadoc{
+        title = rootProject.name + " " + version + " " + "API"
+    }
 }
 
 publishing {
@@ -67,28 +97,6 @@ publishing {
                 password = System.getenv("OSSRH_PASSWORD")
             }
         }
-    }
-}
-
-dependencies {
-    implementation("com.squareup.okhttp3:okhttp:4.11.0")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.15.2")
-    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.2")
-    implementation("org.javatuples:javatuples:1.2")
-
-    testImplementation("org.assertj:assertj-core:3.24.2")
-    testImplementation("com.squareup.okhttp3:mockwebserver:4.11.0")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-
-    compileOnly("org.checkerframework:checker-qual:3.36.0")
-    testCompileOnly("org.checkerframework:checker-qual:3.36.0")
-    checkerFramework("org.checkerframework:checker:3.36.0")
-}
-
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
     }
 }
 
