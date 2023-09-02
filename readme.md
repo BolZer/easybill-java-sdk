@@ -3,7 +3,7 @@
 
 `easybill-java-sdk` is a library to work with the easybill REST API (https://www.easybill.de/api/) written in Java.
 
-## *Active Developing ongoing!*
+### *Active Developing ongoing!*
 
 ## Installation
 This library is available on [Maven Central](https://central.sonatype.com/artifact/io.github.bolzer/easybill-java-sdk)
