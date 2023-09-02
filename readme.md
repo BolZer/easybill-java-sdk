@@ -28,7 +28,56 @@ implementation("io.github.bolzer:easybill-java-sdk:0.1")
 *coming soon*
 
 ## Examples
-*coming soon* 
+```java
+package com.github.bolzer;
+
+import io.github.bolzer.easybill_java_sdk.Client;
+import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
+import io.github.bolzer.easybill_java_sdk.exceptions.EasybillTooManyRequestsException;
+import io.github.bolzer.easybill_java_sdk.models.Document;
+import io.github.bolzer.easybill_java_sdk.requests.DocumentListQueryRequest;
+import io.github.bolzer.easybill_java_sdk.responses.PaginatedResponse;
+
+import java.util.List;
+
+public final class TestClass {
+    void fetchDocumentsAndPrintIds() {
+        Client client = new Client("BEARER_TOKEN");
+
+        try {
+            PaginatedResponse<Document> response = client
+                    .getDocumentsResource()
+                    .fetchDocuments(
+                            DocumentListQueryRequest
+                                    .builder()
+                                    .page(2)
+                                    .limit(10)
+                                    .customerIds(List.of(
+                                            2L,
+                                            2345L,
+                                            234112L
+                                    ))
+                                    .build()
+                    );
+
+            for (Document document : response.items()) {
+                System.out.println(document.id());
+            }
+        } catch (EasybillTooManyRequestsException exception) {
+            // REST API Limit exceeded
+            // Response will include a header with the 
+            // remaining time until you can make a request again
+            int canTryAgainInSeconds = exception.getRetryAfterInSeconds();
+        } catch (EasybillRestException easybillRestException) {
+            // Generic Exception. Client and Server Exception will be caught.
+        }
+    }
+
+}
+```
+
+
+*more coming soon* 
 
 ## Roadmap
 *coming soon*
