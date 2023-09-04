@@ -7,12 +7,14 @@ import io.github.bolzer.easybill_java_sdk.EasybillRestClientTestcase;
 import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
 import io.github.bolzer.easybill_java_sdk.fixtures.time_tracking.*;
 import io.github.bolzer.easybill_java_sdk.models.TimeTracking;
-import io.github.bolzer.easybill_java_sdk.requests.GenericListQueryRequest;
+import io.github.bolzer.easybill_java_sdk.requests.TimeTrackingListQueryRequest;
 import io.github.bolzer.easybill_java_sdk.requests.TimeTrackingRequest;
 import io.github.bolzer.easybill_java_sdk.responses.PaginatedResponse;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import org.javatuples.Pair;
 import org.junit.jupiter.api.Test;
 
 public final class TimeTrackingResourceTest extends EasybillRestClientTestcase {
@@ -26,7 +28,18 @@ public final class TimeTrackingResourceTest extends EasybillRestClientTestcase {
         final PaginatedResponse<TimeTracking> response = client
             .getTimeTrackingResource()
             .fetchTimeTrackings(
-                GenericListQueryRequest.builder().limit(1).page(1).build()
+                TimeTrackingListQueryRequest
+                    .builder()
+                    .limit(1)
+                    .page(1)
+                    .dateThruAt(LocalDate.parse("2020-01-01"))
+                    .dateFromBetween(
+                        new Pair<>(
+                            LocalDate.parse("2020-01-31"),
+                            LocalDate.parse("2025-04-01")
+                        )
+                    )
+                    .build()
             );
 
         assertThat(response.page()).isEqualTo(1);

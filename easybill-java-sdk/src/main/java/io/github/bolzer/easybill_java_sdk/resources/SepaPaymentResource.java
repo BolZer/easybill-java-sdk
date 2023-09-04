@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import io.github.bolzer.easybill_java_sdk.contracts.HttpClient;
 import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
 import io.github.bolzer.easybill_java_sdk.models.SepaPayment;
-import io.github.bolzer.easybill_java_sdk.requests.GenericListQueryRequest;
 import io.github.bolzer.easybill_java_sdk.requests.SepaPaymentListQueryRequest;
 import io.github.bolzer.easybill_java_sdk.requests.SepaPaymentRequest;
 import io.github.bolzer.easybill_java_sdk.responses.PaginatedResponse;

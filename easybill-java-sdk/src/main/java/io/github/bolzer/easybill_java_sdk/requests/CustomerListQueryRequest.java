@@ -80,7 +80,7 @@ public final class CustomerListQueryRequest implements QueryRequest {
         map.put("page", String.valueOf(page));
         map.put("limit", String.valueOf(limit));
 
-        if (firstNames.size() > 0) {
+        if (!firstNames.isEmpty()) {
             map.put(
                 "first_name",
                 String.join(
@@ -90,7 +90,7 @@ public final class CustomerListQueryRequest implements QueryRequest {
             );
         }
 
-        if (lastNames.size() > 0) {
+        if (!lastNames.isEmpty()) {
             map.put(
                 "last_name",
                 String.join(
@@ -100,7 +100,7 @@ public final class CustomerListQueryRequest implements QueryRequest {
             );
         }
 
-        if (companyNames.size() > 0) {
+        if (!companyNames.isEmpty()) {
             map.put(
                 "company_name",
                 String.join(
@@ -110,21 +110,21 @@ public final class CustomerListQueryRequest implements QueryRequest {
             );
         }
 
-        if (numbers.size() > 0) {
+        if (!numbers.isEmpty()) {
             map.put(
                 "number",
                 String.join(",", numbers.stream().map(String::valueOf).toList())
             );
         }
 
-        if (emails.size() > 0) {
+        if (!emails.isEmpty()) {
             map.put(
                 "emails",
                 String.join(",", emails.stream().map(String::valueOf).toList())
             );
         }
 
-        if (zipCodes.size() > 0) {
+        if (!zipCodes.isEmpty()) {
             map.put(
                 "zip_code",
                 String.join(
@@ -134,7 +134,7 @@ public final class CustomerListQueryRequest implements QueryRequest {
             );
         }
 
-        if (countries.size() > 0) {
+        if (!countries.isEmpty()) {
             map.put(
                 "country",
                 String.join(
@@ -144,7 +144,7 @@ public final class CustomerListQueryRequest implements QueryRequest {
             );
         }
 
-        if (groupIds.size() > 0) {
+        if (!groupIds.isEmpty()) {
             map.put(
                 "group_id",
                 String.join(
@@ -154,7 +154,7 @@ public final class CustomerListQueryRequest implements QueryRequest {
             );
         }
 
-        if (additionalGroupIds.size() > 0) {
+        if (!additionalGroupIds.isEmpty()) {
             map.put(
                 "additional_group_id",
                 String.join(

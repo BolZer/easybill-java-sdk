@@ -12,7 +12,7 @@ public final class TimeTrackingFetchListWithQueryFixture implements Fixture {
     }
 
     public @NonNull String getRequestUrl() {
-        return "/rest/v1/time-trackings?limit=1&page=1";
+        return "/rest/v1/time-trackings?date_thru_at=2020-01-01&date_from_at=2020-01-31%2C2025-04-01&limit=1&page=1";
     }
 
     public @Nullable String getPostBody() {
