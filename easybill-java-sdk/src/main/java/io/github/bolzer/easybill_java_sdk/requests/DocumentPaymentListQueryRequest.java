@@ -53,7 +53,7 @@ public final class DocumentPaymentListQueryRequest implements QueryRequest {
 
         if (!documentIds.isEmpty()) {
             map.put(
-                "customer_id",
+                "document_id",
                 String.join(
                     ",",
                     this.documentIds.stream().map(String::valueOf).toList()
