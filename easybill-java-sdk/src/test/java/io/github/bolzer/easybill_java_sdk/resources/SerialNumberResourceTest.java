@@ -10,7 +10,7 @@ import io.github.bolzer.easybill_java_sdk.fixtures.serial_number.SerialNumberDel
 import io.github.bolzer.easybill_java_sdk.fixtures.serial_number.SerialNumberFetchFixture;
 import io.github.bolzer.easybill_java_sdk.fixtures.serial_number.SerialNumberFetchListWithQueryFixture;
 import io.github.bolzer.easybill_java_sdk.models.SerialNumber;
-import io.github.bolzer.easybill_java_sdk.requests.GenericListQueryRequest;
+import io.github.bolzer.easybill_java_sdk.requests.SerialNumberListQueryRequest;
 import io.github.bolzer.easybill_java_sdk.requests.SerialNumberRequest;
 import io.github.bolzer.easybill_java_sdk.responses.PaginatedResponse;
 import java.util.List;
@@ -27,7 +27,7 @@ public final class SerialNumberResourceTest extends EasybillRestClientTestcase {
         final PaginatedResponse<SerialNumber> response = client
             .getSerialNumberResource()
             .fetchSerialNumbers(
-                GenericListQueryRequest.builder().limit(1).page(2).build()
+                SerialNumberListQueryRequest.builder().limit(1).page(2).build()
             );
 
         assertThat(response.page()).isEqualTo(2);

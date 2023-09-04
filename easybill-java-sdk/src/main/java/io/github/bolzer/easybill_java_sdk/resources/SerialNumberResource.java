@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import io.github.bolzer.easybill_java_sdk.contracts.HttpClient;
 import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
 import io.github.bolzer.easybill_java_sdk.models.SerialNumber;
-import io.github.bolzer.easybill_java_sdk.requests.GenericListQueryRequest;
+import io.github.bolzer.easybill_java_sdk.requests.SerialNumberListQueryRequest;
 import io.github.bolzer.easybill_java_sdk.requests.SerialNumberRequest;
 import io.github.bolzer.easybill_java_sdk.responses.PaginatedResponse;
 import org.checkerframework.checker.index.qual.Positive;
@@ -23,11 +23,11 @@ public final class SerialNumberResource {
     }
 
     public @NonNull PaginatedResponse<SerialNumber> fetchSerialNumbers(
-        GenericListQueryRequest genericListQueryRequest
+        SerialNumberListQueryRequest serialNumberListQueryRequest
     ) throws EasybillRestException {
         return this.httpClient.doGetRequestAndMarshalJsonInto(
                 RESOURCE_URL,
-                genericListQueryRequest,
+                serialNumberListQueryRequest,
                 new TypeReference<>() {}
             );
     }
