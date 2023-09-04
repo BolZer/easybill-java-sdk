@@ -332,10 +332,14 @@ public final class HttpClientWrapper implements HttpClient {
                     new TypeReference<HashMap<String, Object>>() {}
                 );
 
+        @SuppressWarnings("unchecked")
+        List<@NonNull String> arguments =
+            (List<String>) errorResponse.getOrDefault("arguments", List.of());
+
         throw new EasybillBadRequestException(
             response.code(),
             (int) errorResponse.getOrDefault("code", 0),
-            (List<String>) errorResponse.getOrDefault("arguments", List.of()),
+            arguments,
             (String) errorResponse.getOrDefault("message", ""),
             response.request()
         );
