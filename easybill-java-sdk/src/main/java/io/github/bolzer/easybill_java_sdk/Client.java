@@ -92,4 +92,8 @@ public final class Client {
     public @NonNull ContactResource getContactResource() {
         return new ContactResource(this.httpClient);
     }
+
+    public @NonNull AttachmentResource getAttachmentResource() {
+        return new AttachmentResource(this.httpClient);
+    }
 }
