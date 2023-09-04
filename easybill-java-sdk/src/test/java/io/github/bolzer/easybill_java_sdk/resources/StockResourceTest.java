@@ -9,7 +9,7 @@ import io.github.bolzer.easybill_java_sdk.fixtures.stock.StockCreateFixture;
 import io.github.bolzer.easybill_java_sdk.fixtures.stock.StockFetchFixture;
 import io.github.bolzer.easybill_java_sdk.fixtures.stock.StockFetchListWithQueryFixture;
 import io.github.bolzer.easybill_java_sdk.models.Stock;
-import io.github.bolzer.easybill_java_sdk.requests.GenericListQueryRequest;
+import io.github.bolzer.easybill_java_sdk.requests.StockListQueryRequest;
 import io.github.bolzer.easybill_java_sdk.requests.StockRequest;
 import io.github.bolzer.easybill_java_sdk.responses.PaginatedResponse;
 import java.util.List;
@@ -26,7 +26,7 @@ public final class StockResourceTest extends EasybillRestClientTestcase {
         final PaginatedResponse<Stock> response = client
             .getStockResource()
             .fetchStocks(
-                GenericListQueryRequest.builder().limit(1).page(1).build()
+                StockListQueryRequest.builder().limit(1).page(1).build()
             );
 
         assertThat(response.page()).isEqualTo(1);

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import io.github.bolzer.easybill_java_sdk.contracts.HttpClient;
 import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
 import io.github.bolzer.easybill_java_sdk.models.Stock;
-import io.github.bolzer.easybill_java_sdk.requests.GenericListQueryRequest;
+import io.github.bolzer.easybill_java_sdk.requests.StockListQueryRequest;
 import io.github.bolzer.easybill_java_sdk.requests.StockRequest;
 import io.github.bolzer.easybill_java_sdk.responses.PaginatedResponse;
 import org.checkerframework.checker.index.qual.Positive;
@@ -23,11 +23,11 @@ public final class StockResource {
     }
 
     public @NonNull PaginatedResponse<Stock> fetchStocks(
-        GenericListQueryRequest genericListQueryRequest
+        StockListQueryRequest stockListQueryRequest
     ) throws EasybillRestException {
         return this.httpClient.doGetRequestAndMarshalJsonInto(
                 RESOURCE_URL,
-                genericListQueryRequest,
+                stockListQueryRequest,
                 new TypeReference<>() {}
             );
     }
