@@ -5,7 +5,7 @@ import io.github.bolzer.easybill_java_sdk.contracts.HttpClient;
 import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
 import io.github.bolzer.easybill_java_sdk.models.PositionDiscount;
 import io.github.bolzer.easybill_java_sdk.models.PositionGroupDiscount;
-import io.github.bolzer.easybill_java_sdk.requests.GenericListQueryRequest;
+import io.github.bolzer.easybill_java_sdk.requests.DiscountListQueryRequest;
 import io.github.bolzer.easybill_java_sdk.requests.PositionDiscountRequest;
 import io.github.bolzer.easybill_java_sdk.requests.PositionGroupDiscountRequest;
 import io.github.bolzer.easybill_java_sdk.responses.PaginatedResponse;
@@ -25,11 +25,11 @@ public final class DiscountResource {
     }
 
     public @NonNull PaginatedResponse<PositionDiscount> fetchPositionDiscounts(
-        GenericListQueryRequest genericListQueryRequest
+        @NonNull DiscountListQueryRequest discountListQueryRequest
     ) throws EasybillRestException {
         return this.httpClient.doGetRequestAndMarshalJsonInto(
                 RESOURCE_URL + "/position",
-                genericListQueryRequest,
+                discountListQueryRequest,
                 new TypeReference<>() {}
             );
     }
@@ -73,11 +73,11 @@ public final class DiscountResource {
     }
 
     public @NonNull PaginatedResponse<PositionGroupDiscount> fetchPositionGroupDiscounts(
-        GenericListQueryRequest genericListQueryRequest
+        @NonNull DiscountListQueryRequest discountListQueryRequest
     ) throws EasybillRestException {
         return this.httpClient.doGetRequestAndMarshalJsonInto(
                 RESOURCE_URL + "/position-group",
-                genericListQueryRequest,
+                discountListQueryRequest,
                 new TypeReference<>() {}
             );
     }

@@ -10,7 +10,7 @@ import io.github.bolzer.easybill_java_sdk.fixtures.discounts.position.*;
 import io.github.bolzer.easybill_java_sdk.fixtures.discounts.position_group.*;
 import io.github.bolzer.easybill_java_sdk.models.PositionDiscount;
 import io.github.bolzer.easybill_java_sdk.models.PositionGroupDiscount;
-import io.github.bolzer.easybill_java_sdk.requests.GenericListQueryRequest;
+import io.github.bolzer.easybill_java_sdk.requests.DiscountListQueryRequest;
 import io.github.bolzer.easybill_java_sdk.requests.PositionDiscountRequest;
 import io.github.bolzer.easybill_java_sdk.requests.PositionGroupDiscountRequest;
 import io.github.bolzer.easybill_java_sdk.responses.PaginatedResponse;
@@ -28,7 +28,7 @@ public final class DiscountResourceTest extends EasybillRestClientTestcase {
         final PaginatedResponse<PositionDiscount> response = client
             .getDiscountResource()
             .fetchPositionDiscounts(
-                GenericListQueryRequest.builder().limit(1).page(1).build()
+                DiscountListQueryRequest.builder().limit(1).page(1).build()
             );
 
         assertThat(response.page()).isEqualTo(1);
@@ -113,7 +113,7 @@ public final class DiscountResourceTest extends EasybillRestClientTestcase {
         final PaginatedResponse<PositionGroupDiscount> response = client
             .getDiscountResource()
             .fetchPositionGroupDiscounts(
-                GenericListQueryRequest.builder().limit(1).page(1).build()
+                DiscountListQueryRequest.builder().limit(1).page(1).build()
             );
 
         assertThat(response.page()).isEqualTo(1);
