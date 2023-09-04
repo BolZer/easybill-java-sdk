@@ -5,6 +5,7 @@ import io.github.bolzer.easybill_java_sdk.contracts.HttpClient;
 import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
 import io.github.bolzer.easybill_java_sdk.models.SepaPayment;
 import io.github.bolzer.easybill_java_sdk.requests.GenericListQueryRequest;
+import io.github.bolzer.easybill_java_sdk.requests.SepaPaymentListQueryRequest;
 import io.github.bolzer.easybill_java_sdk.requests.SepaPaymentRequest;
 import io.github.bolzer.easybill_java_sdk.responses.PaginatedResponse;
 import org.checkerframework.checker.index.qual.Positive;
@@ -23,11 +24,11 @@ public final class SepaPaymentResource {
     }
 
     public @NonNull PaginatedResponse<SepaPayment> fetchSepaPayments(
-        GenericListQueryRequest genericListQueryRequest
+        SepaPaymentListQueryRequest sepaPaymentListQueryRequest
     ) throws EasybillRestException {
         return this.httpClient.doGetRequestAndMarshalJsonInto(
                 RESOURCE_URL,
-                genericListQueryRequest,
+                sepaPaymentListQueryRequest,
                 new TypeReference<>() {}
             );
     }

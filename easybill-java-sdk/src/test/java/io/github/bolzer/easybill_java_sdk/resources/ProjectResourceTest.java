@@ -8,7 +8,7 @@ import io.github.bolzer.easybill_java_sdk.enums.ProjectStatus;
 import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
 import io.github.bolzer.easybill_java_sdk.fixtures.projects.*;
 import io.github.bolzer.easybill_java_sdk.models.Project;
-import io.github.bolzer.easybill_java_sdk.requests.GenericListQueryRequest;
+import io.github.bolzer.easybill_java_sdk.requests.ProjectListQueryRequest;
 import io.github.bolzer.easybill_java_sdk.requests.ProjectRequest;
 import io.github.bolzer.easybill_java_sdk.responses.PaginatedResponse;
 import java.util.List;
@@ -25,7 +25,7 @@ public final class ProjectResourceTest extends EasybillRestClientTestcase {
         final PaginatedResponse<Project> response = client
             .getProjectResource()
             .fetchProjects(
-                GenericListQueryRequest.builder().limit(1).page(1).build()
+                ProjectListQueryRequest.builder().limit(1).page(1).build()
             );
 
         assertThat(response.page()).isEqualTo(1);

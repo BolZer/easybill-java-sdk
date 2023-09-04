@@ -10,6 +10,7 @@ import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
 import io.github.bolzer.easybill_java_sdk.fixtures.sepa_payments.*;
 import io.github.bolzer.easybill_java_sdk.models.SepaPayment;
 import io.github.bolzer.easybill_java_sdk.requests.GenericListQueryRequest;
+import io.github.bolzer.easybill_java_sdk.requests.SepaPaymentListQueryRequest;
 import io.github.bolzer.easybill_java_sdk.requests.SepaPaymentRequest;
 import io.github.bolzer.easybill_java_sdk.responses.PaginatedResponse;
 import java.time.LocalDate;
@@ -28,7 +29,7 @@ public final class SepaPaymentResourceTest extends EasybillRestClientTestcase {
         final PaginatedResponse<SepaPayment> response = client
             .getSepaPaymentResource()
             .fetchSepaPayments(
-                GenericListQueryRequest.builder().limit(1).page(1).build()
+                SepaPaymentListQueryRequest.builder().limit(1).page(1).build()
             );
 
         assertThat(response.page()).isEqualTo(1);
