@@ -1,4 +1,4 @@
-package io.github.bolzer.easybill_java_sdk.fixtures.time_tracking;
+package io.github.bolzer.easybill_java_sdk.fixtures.time_trackings;
 
 import io.github.bolzer.easybill_java_sdk.fixtures.Fixture;
 import io.github.bolzer.easybill_java_sdk.requests.TimeTrackingRequest;

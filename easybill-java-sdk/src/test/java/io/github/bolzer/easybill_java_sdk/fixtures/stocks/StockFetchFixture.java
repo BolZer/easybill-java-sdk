@@ -1,28 +1,22 @@
-package io.github.bolzer.easybill_java_sdk.fixtures.stock;
+package io.github.bolzer.easybill_java_sdk.fixtures.stocks;
 
 import io.github.bolzer.easybill_java_sdk.fixtures.Fixture;
-import io.github.bolzer.easybill_java_sdk.requests.StockRequest;
 import okhttp3.mockwebserver.MockResponse;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
-public final class StockCreateFixture implements Fixture {
+public final class StockFetchFixture implements Fixture {
 
     public @NonNull String getRequestMethod() {
-        return "POST";
+        return "GET";
     }
 
     public @NonNull String getRequestUrl() {
-        return "/rest/v1/stocks";
+        return "/rest/v1/stocks/9";
     }
 
-    public @Nullable Object getPostBody() {
-        return StockRequest
-            .builder()
-            .note("00010")
-            .stockCount(100L)
-            .positionId(2)
-            .build();
+    public @Nullable String getPostBody() {
+        return null;
     }
 
     public @NonNull MockResponse getResponse() {
@@ -33,7 +27,7 @@ public final class StockCreateFixture implements Fixture {
                      "document_id": null,
                      "document_position_id": null,
                      "id": 9,
-                     "note": "00010",
+                     "note": "",
                      "position_id": 2,
                      "stock_count": 100,
                      "stored_at": "2023-08-31 14:17:51",
@@ -41,6 +35,6 @@ public final class StockCreateFixture implements Fixture {
                  }
             """;
 
-        return new MockResponse().setResponseCode(201).setBody(jsonResponse);
+        return new MockResponse().setResponseCode(200).setBody(jsonResponse);
     }
 }

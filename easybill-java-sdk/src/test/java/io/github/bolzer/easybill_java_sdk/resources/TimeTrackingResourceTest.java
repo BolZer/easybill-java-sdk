@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import io.github.bolzer.easybill_java_sdk.Client;
 import io.github.bolzer.easybill_java_sdk.EasybillRestClientTestcase;
 import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
-import io.github.bolzer.easybill_java_sdk.fixtures.time_tracking.*;
+import io.github.bolzer.easybill_java_sdk.fixtures.time_trackings.*;
 import io.github.bolzer.easybill_java_sdk.models.TimeTracking;
 import io.github.bolzer.easybill_java_sdk.requests.TimeTrackingListQueryRequest;
 import io.github.bolzer.easybill_java_sdk.requests.TimeTrackingRequest;

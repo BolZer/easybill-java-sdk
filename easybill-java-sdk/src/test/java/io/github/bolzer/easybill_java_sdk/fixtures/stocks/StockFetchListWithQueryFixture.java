@@ -1,4 +1,4 @@
-package io.github.bolzer.easybill_java_sdk.fixtures.stock;
+package io.github.bolzer.easybill_java_sdk.fixtures.stocks;
 
 import io.github.bolzer.easybill_java_sdk.fixtures.Fixture;
 import okhttp3.mockwebserver.MockResponse;

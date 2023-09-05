@@ -1,4 +1,4 @@
-package io.github.bolzer.easybill_java_sdk.fixtures.serial_number;
+package io.github.bolzer.easybill_java_sdk.fixtures.serial_numbers;
 
 import io.github.bolzer.easybill_java_sdk.fixtures.Fixture;
 import okhttp3.mockwebserver.MockResponse;

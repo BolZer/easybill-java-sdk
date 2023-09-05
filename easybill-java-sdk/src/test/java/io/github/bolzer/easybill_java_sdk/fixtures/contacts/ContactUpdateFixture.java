@@ -1,4 +1,4 @@
-package io.github.bolzer.easybill_java_sdk.fixtures.contact;
+package io.github.bolzer.easybill_java_sdk.fixtures.contacts;
 
 import io.github.bolzer.easybill_java_sdk.fixtures.Fixture;
 import io.github.bolzer.easybill_java_sdk.requests.ContactRequest;

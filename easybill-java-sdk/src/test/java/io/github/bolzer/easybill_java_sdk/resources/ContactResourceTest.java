@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import io.github.bolzer.easybill_java_sdk.Client;
 import io.github.bolzer.easybill_java_sdk.EasybillRestClientTestcase;
 import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
-import io.github.bolzer.easybill_java_sdk.fixtures.contact.*;
+import io.github.bolzer.easybill_java_sdk.fixtures.contacts.*;
 import io.github.bolzer.easybill_java_sdk.models.Contact;
 import io.github.bolzer.easybill_java_sdk.requests.ContactRequest;
 import io.github.bolzer.easybill_java_sdk.requests.GenericListQueryRequest;
