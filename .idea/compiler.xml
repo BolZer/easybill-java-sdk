@@ -4,22 +4,22 @@
     <annotationProcessing>
       <profile name="Gradle Imported" enabled="true">
         <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.28/a2ff5da8bcd8b1b26f36b806ced63213362c6dcc/lombok-1.18.28.jar" />
+        </processorPath>
+        <module name="easybill-java-sdk.easybill-java-sdk.test" />
+      </profile>
+      <profile name="Gradle Imported" enabled="true">
+        <outputRelativeToContentRoot value="true" />
         <option name="suppressWarnings" value="type.anno.before.decl.anno,type.anno.before.modifier" />
         <processorPath useClasspath="false">
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.checkerframework/checker/3.36.0/cfa5782f0a924ea74b084a6ec8a34bdd125b15f5/checker-3.36.0.jar" />
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.checkerframework/checker-util/3.36.0/f68b965279736dac4f243488b013994bb4d41b7d/checker-util-3.36.0.jar" />
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.checkerframework/checker-qual/3.36.0/62ea2b911acf3a3eecd25a1a2986864b7403f6d2/checker-qual-3.36.0.jar" />
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.28/a2ff5da8bcd8b1b26f36b806ced63213362c6dcc/lombok-1.18.28.jar" />
-          <entry name="$PROJECT_DIR$/lib/build/checkerframework" />
+          <entry name="$PROJECT_DIR$/easybill-java-sdk/build/checkerframework" />
         </processorPath>
-        <module name="easybill-java-sdk.lib.main" />
-      </profile>
-      <profile name="Gradle Imported" enabled="true">
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.28/a2ff5da8bcd8b1b26f36b806ced63213362c6dcc/lombok-1.18.28.jar" />
-        </processorPath>
-        <module name="easybill-java-sdk.lib.test" />
+        <module name="easybill-java-sdk.easybill-java-sdk.main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="17" />

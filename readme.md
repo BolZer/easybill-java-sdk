@@ -1,5 +1,7 @@
 # easybill-java-sdk
-[![Generic badge](https://img.shields.io/badge/Version-0.1.0-important.svg)]()
+[![Generic badge](https://img.shields.io/badge/Version-0.2.0-important.svg)]()
+[![Generic badge](https://img.shields.io/badge/JDK-17-important.svg)]()
+
 
 `easybill-java-sdk` is a library to work with the easybill REST API (https://www.easybill.de/api/) written in Java.
 
@@ -12,7 +14,7 @@ This library is available on [Maven Central](https://central.sonatype.com/artifa
 
 #### Kotlin DSL 
 ```
-implementation("io.github.bolzer:easybill-java-sdk:0.1")
+implementation("io.github.bolzer:easybill-java-sdk:0.2.0")
 ```
 
 ### Maven
@@ -20,7 +22,7 @@ implementation("io.github.bolzer:easybill-java-sdk:0.1")
 <dependency>
     <groupId>io.github.bolzer</groupId>
     <artifactId>easybill-java-sdk</artifactId>
-    <version>0.1</version>
+    <version>0.2.0</version>
 </dependency>
 ```
 

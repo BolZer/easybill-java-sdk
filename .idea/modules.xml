@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lib/easybill-java-sdk.lib.main.iml" filepath="$PROJECT_DIR$/.idea/modules/lib/easybill-java-sdk.lib.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lib/easybill-java-sdk.lib.test.iml" filepath="$PROJECT_DIR$/.idea/modules/lib/easybill-java-sdk.lib.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/easybill-java-sdk/easybill-java-sdk.easybill-java-sdk.main.iml" filepath="$PROJECT_DIR$/.idea/modules/easybill-java-sdk/easybill-java-sdk.easybill-java-sdk.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/easybill-java-sdk/easybill-java-sdk.easybill-java-sdk.test.iml" filepath="$PROJECT_DIR$/.idea/modules/easybill-java-sdk/easybill-java-sdk.easybill-java-sdk.test.iml" />
     </modules>
   </component>
 </project>

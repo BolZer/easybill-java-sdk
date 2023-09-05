@@ -3,4 +3,4 @@ plugins {
 }
 
 rootProject.name = "easybill-java-sdk"
-include("lib")
+include("easybill-java-sdk")
