@@ -1,5 +1,5 @@
 # easybill-java-sdk
-[![Generic badge](https://img.shields.io/badge/Version-0.2.0-important.svg)]()
+[![Generic badge](https://img.shields.io/badge/Version-0.2.1-important.svg)]()
 [![Generic badge](https://img.shields.io/badge/JDK-17-important.svg)]()
 
 
@@ -14,7 +14,7 @@ This library is available on [Maven Central](https://central.sonatype.com/artifa
 
 #### Kotlin DSL 
 ```
-implementation("io.github.bolzer:easybill-java-sdk:0.2.0")
+implementation("io.github.bolzer:easybill-java-sdk:0.2.1")
 ```
 
 ### Maven
@@ -22,7 +22,7 @@ implementation("io.github.bolzer:easybill-java-sdk:0.2.0")
 <dependency>
     <groupId>io.github.bolzer</groupId>
     <artifactId>easybill-java-sdk</artifactId>
-    <version>0.2.0</version>
+    <version>0.2.1</version>
 </dependency>
 ```
 
