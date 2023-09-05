@@ -29,4 +29,13 @@ public final class AttachmentResource {
                 new TypeReference<>() {}
             );
     }
+
+    public @NonNull Attachment fetchAttachment(long attachmentId)
+        throws EasybillRestException {
+        return this.httpClient.doGetRequestAndMarshalJsonInto(
+                RESOURCE_URL + "/" + attachmentId,
+                null,
+                new TypeReference<>() {}
+            );
+    }
 }
