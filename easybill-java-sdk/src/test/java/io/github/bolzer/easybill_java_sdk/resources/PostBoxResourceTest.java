@@ -9,7 +9,7 @@ import io.github.bolzer.easybill_java_sdk.fixtures.post_boxes.PostBoxDeleteFixtu
 import io.github.bolzer.easybill_java_sdk.fixtures.post_boxes.PostBoxFetchFixture;
 import io.github.bolzer.easybill_java_sdk.fixtures.post_boxes.PostBoxFetchListWithQueryFixture;
 import io.github.bolzer.easybill_java_sdk.models.PostBox;
-import io.github.bolzer.easybill_java_sdk.requests.GenericListQueryRequest;
+import io.github.bolzer.easybill_java_sdk.requests.PostBoxListQueryRequest;
 import io.github.bolzer.easybill_java_sdk.responses.PaginatedResponse;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -25,7 +25,7 @@ public final class PostBoxResourceTest extends EasybillRestClientTestcase {
         final PaginatedResponse<PostBox> response = client
             .getPostBoxResource()
             .fetchPostBoxes(
-                GenericListQueryRequest.builder().limit(1).page(1).build()
+                PostBoxListQueryRequest.builder().limit(1).page(1).build()
             );
 
         assertThat(response.page()).isEqualTo(1);

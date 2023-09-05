@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import io.github.bolzer.easybill_java_sdk.contracts.HttpClient;
 import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
 import io.github.bolzer.easybill_java_sdk.models.PostBox;
-import io.github.bolzer.easybill_java_sdk.requests.GenericListQueryRequest;
+import io.github.bolzer.easybill_java_sdk.requests.PostBoxListQueryRequest;
 import io.github.bolzer.easybill_java_sdk.responses.PaginatedResponse;
 import org.checkerframework.checker.index.qual.Positive;
 import org.checkerframework.checker.nullness.qual.NonNull;
@@ -22,11 +22,11 @@ public final class PostBoxResource {
     }
 
     public @NonNull PaginatedResponse<PostBox> fetchPostBoxes(
-        GenericListQueryRequest genericListQueryRequest
+        PostBoxListQueryRequest postBoxListQueryRequest
     ) throws EasybillRestException {
         return this.httpClient.doGetRequestAndMarshalJsonInto(
                 RESOURCE_URL,
-                genericListQueryRequest,
+                postBoxListQueryRequest,
                 new TypeReference<>() {}
             );
     }
