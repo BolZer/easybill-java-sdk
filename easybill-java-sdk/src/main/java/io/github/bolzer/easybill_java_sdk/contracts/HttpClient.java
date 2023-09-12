@@ -2,6 +2,7 @@ package io.github.bolzer.easybill_java_sdk.contracts;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
+import java.io.File;
 import org.checkerframework.checker.initialization.qual.Initialized;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -37,4 +38,10 @@ public interface HttpClient {
     ) throws EasybillRestException;
 
     byte[] downloadFile(@NonNull String endpoint) throws EasybillRestException;
+
+    <T extends @Initialized @NonNull Object> T uploadFile(
+        @NonNull String endpoint,
+        @NonNull File file,
+        TypeReference<T> typeReferenceOfReturnValue
+    ) throws EasybillRestException;
 }

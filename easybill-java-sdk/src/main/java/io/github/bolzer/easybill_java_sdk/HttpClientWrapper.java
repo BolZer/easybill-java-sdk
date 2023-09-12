@@ -12,6 +12,7 @@ import io.github.bolzer.easybill_java_sdk.contracts.QueryRequest;
 import io.github.bolzer.easybill_java_sdk.exceptions.*;
 import io.github.bolzer.easybill_java_sdk.interceptors.BearerAuthorizationInterceptor;
 import io.github.bolzer.easybill_java_sdk.interceptors.UserAgentInterceptor;
+import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.HashMap;
@@ -220,6 +221,35 @@ public final class HttpClientWrapper implements HttpClient {
 
         try {
             return this.okHttpClient.newCall(request).execute();
+        } catch (IOException exception) {
+            throw new EasybillRestException("request failed");
+        }
+    }
+
+    public <T extends @Initialized @NonNull Object> T uploadFile(
+        @NonNull String endpoint,
+        @NonNull File file,
+        TypeReference<T> typeReferenceOfReturnValue
+    ) throws EasybillRestException {
+        RequestBody requestBody = new MultipartBody.Builder()
+            .setType(MultipartBody.FORM)
+            .addFormDataPart(
+                "file",
+                file.getName(),
+                RequestBody.create(file, null)
+            )
+            .build();
+
+        final Request request = new Request.Builder()
+            .method("POST", requestBody)
+            .url(this.buildUrl(endpoint, null))
+            .build();
+
+        try (Response response = this.okHttpClient.newCall(request).execute()) {
+            return this.handleResponseAndReturnTypeByReference(
+                    response,
+                    typeReferenceOfReturnValue
+                );
         } catch (IOException exception) {
             throw new EasybillRestException("request failed");
         }

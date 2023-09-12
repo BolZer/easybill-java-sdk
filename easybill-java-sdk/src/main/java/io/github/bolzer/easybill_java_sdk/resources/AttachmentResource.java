@@ -6,6 +6,8 @@ import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
 import io.github.bolzer.easybill_java_sdk.models.Attachment;
 import io.github.bolzer.easybill_java_sdk.requests.GenericListQueryRequest;
 import io.github.bolzer.easybill_java_sdk.responses.PaginatedResponse;
+import java.io.File;
+import org.checkerframework.checker.index.qual.Positive;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 public final class AttachmentResource {
@@ -37,5 +39,26 @@ public final class AttachmentResource {
                 null,
                 new TypeReference<>() {}
             );
+    }
+
+    public @NonNull Attachment createAttachment(File file)
+        throws EasybillRestException {
+        return this.httpClient.uploadFile(
+                RESOURCE_URL,
+                file,
+                new TypeReference<>() {}
+            );
+    }
+
+    public byte[] fetchAttachmentContent(long attachmentId)
+        throws EasybillRestException {
+        return this.httpClient.downloadFile(
+                RESOURCE_URL + "/" + attachmentId + "/content"
+            );
+    }
+
+    public void deleteAttachment(@Positive long attachmentId)
+        throws EasybillRestException {
+        this.httpClient.doDeleteRequest(RESOURCE_URL + "/" + attachmentId);
     }
 }

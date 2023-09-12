@@ -54,7 +54,12 @@ public class EasybillRestClientTestcase {
                         continue;
                     }
 
-                    if (request.getBody().size() != 0) {
+                    if (
+                        request.getBodySize() != 0 &&
+                        Objects
+                            .requireNonNull(request.getHeader("Content-Type"))
+                            .contains("application/json")
+                    ) {
                         try {
                             ObjectMapper ojm = new ObjectMapper();
 
@@ -73,6 +78,23 @@ public class EasybillRestClientTestcase {
                             }
                         } catch (IOException e) {
                             throw new RuntimeException(e);
+                        }
+                    }
+
+                    if (
+                        request.getBodySize() != 0 &&
+                        Objects
+                            .requireNonNull(request.getHeader("Content-Type"))
+                            .contains("multipart/form-data")
+                    ) {
+                        String rawRequestBody = request.getBody().readUtf8();
+
+                        if (
+                            rawRequestBody.contains(
+                                fixture.getPostBody().toString()
+                            )
+                        ) {
+                            return fixture.getResponse();
                         }
                     }
 
