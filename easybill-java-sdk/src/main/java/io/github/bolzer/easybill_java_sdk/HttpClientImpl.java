@@ -25,12 +25,12 @@ import org.checkerframework.checker.initialization.qual.Initialized;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
-public final class HttpClientWrapper implements HttpClient {
+public final class HttpClientImpl implements HttpClient {
 
     @NonNull
     private final OkHttpClient okHttpClient;
 
-    public HttpClientWrapper(@NonNull String apiToken) {
+    public HttpClientImpl(@NonNull String apiToken) {
         this.okHttpClient =
             new OkHttpClient.Builder()
                 .followRedirects(false)

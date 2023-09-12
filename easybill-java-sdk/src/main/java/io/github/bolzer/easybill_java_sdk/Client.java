@@ -18,7 +18,7 @@ public final class Client {
     private final HttpClient httpClient;
 
     public Client(@NonNull String bearerToken) {
-        this.httpClient = new HttpClientWrapper(bearerToken);
+        this.httpClient = new HttpClientImpl(bearerToken);
     }
 
     public @NonNull DocumentResource getDocumentsResource() {
