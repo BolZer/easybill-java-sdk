@@ -7,6 +7,7 @@ import io.github.bolzer.easybill_java_sdk.EasybillRestClientTestcase;
 import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
 import io.github.bolzer.easybill_java_sdk.fixtures.attachments.*;
 import io.github.bolzer.easybill_java_sdk.models.Attachment;
+import io.github.bolzer.easybill_java_sdk.requests.AttachmentRequest;
 import io.github.bolzer.easybill_java_sdk.requests.GenericListQueryRequest;
 import io.github.bolzer.easybill_java_sdk.responses.PaginatedResponse;
 import java.io.IOException;
@@ -102,5 +103,22 @@ public final class AttachmentResourceTest extends EasybillRestClientTestcase {
         );
 
         client.getAttachmentResource().deleteAttachment(1L);
+    }
+
+    @Test
+    public void testUpdateAttachment() throws EasybillRestException {
+        Client client = bootstrapMockWebServerAndReturnClient(
+            List.of(new AttachmentUpdateFixture())
+        );
+
+        final Attachment response = client
+            .getAttachmentResource()
+            .updateAttachment(
+                6604183L,
+                AttachmentRequest.builder().projectId(11L).build()
+            );
+
+        assertThat(response.id()).isEqualTo(6604183L);
+        assertThat(response.projectId()).isEqualTo(11L);
     }
 }

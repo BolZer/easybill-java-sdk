@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import io.github.bolzer.easybill_java_sdk.contracts.HttpClient;
 import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
 import io.github.bolzer.easybill_java_sdk.models.Attachment;
+import io.github.bolzer.easybill_java_sdk.requests.AttachmentRequest;
 import io.github.bolzer.easybill_java_sdk.requests.GenericListQueryRequest;
 import io.github.bolzer.easybill_java_sdk.responses.PaginatedResponse;
 import java.io.File;
@@ -46,6 +47,17 @@ public final class AttachmentResource {
         return this.httpClient.uploadFile(
                 RESOURCE_URL,
                 file,
+                new TypeReference<>() {}
+            );
+    }
+
+    public @NonNull Attachment updateAttachment(
+        @Positive long attachmentId,
+        @NonNull AttachmentRequest attachmentRequest
+    ) throws EasybillRestException {
+        return this.httpClient.doPutRequestAndMarshalJsonInto(
+                RESOURCE_URL + "/" + attachmentId,
+                attachmentRequest,
                 new TypeReference<>() {}
             );
     }
