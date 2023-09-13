@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import org.checkerframework.checker.index.qual.Positive;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -188,7 +189,10 @@ public record Document(
         @JsonProperty("vat_option") @Nullable VatOption vatOption
     ) {
         this.address = address;
-        this.attachmentIds = Collections.unmodifiableList(attachmentIds);
+        this.attachmentIds =
+            Collections.unmodifiableList(
+                Optional.ofNullable(attachmentIds).orElse(List.of())
+            );
         this.labelAddress = labelAddress;
         this.amount = amount;
         this.amountNet = amountNet;
@@ -223,8 +227,14 @@ public record Document(
         this.isCold = isCold;
         this.isOss = isOss;
         this.coldstorageDueDate = coldstorageDueDate;
-        this.itemNotes = Collections.unmodifiableList(itemNotes);
-        this.items = Collections.unmodifiableList(items);
+        this.itemNotes =
+            Collections.unmodifiableList(
+                Optional.ofNullable(itemNotes).orElse(List.of())
+            );
+        this.items =
+            Collections.unmodifiableList(
+                Optional.ofNullable(items).orElse(List.of())
+            );
         this.lastPostboxId = lastPostboxId;
         this.loginId = loginId;
         this.number = number;

@@ -3,6 +3,7 @@ package io.github.bolzer.easybill_java_sdk.resources;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.github.bolzer.easybill_java_sdk.contracts.HttpClient;
 import io.github.bolzer.easybill_java_sdk.enums.DocumentSendType;
+import io.github.bolzer.easybill_java_sdk.enums.DocumentType;
 import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
 import io.github.bolzer.easybill_java_sdk.models.Document;
 import io.github.bolzer.easybill_java_sdk.requests.DocumentListQueryRequest;
@@ -69,6 +70,18 @@ public final class DocumentResource {
     ) throws EasybillRestException {
         return this.httpClient.putJson(
                 RESOURCE_URL + "/" + documentId + "/done",
+                documentUpdateRequest,
+                new TypeReference<>() {}
+            );
+    }
+
+    public @NonNull Document copyDocument(
+        @Positive long documentId,
+        @NonNull DocumentType targetType,
+        @NonNull DocumentRequest documentUpdateRequest
+    ) throws EasybillRestException {
+        return this.httpClient.postJson(
+                RESOURCE_URL + "/" + documentId + "/" + targetType,
                 documentUpdateRequest,
                 new TypeReference<>() {}
             );

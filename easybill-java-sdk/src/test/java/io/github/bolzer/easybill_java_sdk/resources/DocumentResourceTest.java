@@ -147,6 +147,27 @@ public final class DocumentResourceTest extends EasybillRestClientTestcase {
     }
 
     @Test
+    public void testCopyDocument() throws EasybillRestException {
+        Client client = bootstrapMockWebServerAndReturnClient(
+            List.of(new DocumentCopyFixture())
+        );
+
+        Document document = client
+            .getDocumentsResource()
+            .copyDocument(
+                139L,
+                DocumentType.REMINDER,
+                DocumentRequest
+                    .builder()
+                    .number("Reminder for your Payment")
+                    .build()
+            );
+
+        assertThat(document.number()).isEqualTo("Reminder for your Payment");
+        assertThat(document.type()).isEqualTo(DocumentType.REMINDER);
+    }
+
+    @Test
     public void testSendDocument() throws EasybillRestException {
         Client client = bootstrapMockWebServerAndReturnClient(
             List.of(new DocumentEmailSendFixture())
