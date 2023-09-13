@@ -14,6 +14,7 @@ import io.github.bolzer.easybill_java_sdk.requests.DocumentListQueryRequest;
 import io.github.bolzer.easybill_java_sdk.requests.DocumentRequest;
 import io.github.bolzer.easybill_java_sdk.requests.DocumentSendRequest;
 import io.github.bolzer.easybill_java_sdk.responses.PaginatedResponse;
+import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -202,11 +203,12 @@ public final class DocumentResourceTest extends EasybillRestClientTestcase {
             List.of(new DocumentDownloadJpgFixture())
         );
 
-        byte[] result = client
+        ByteBuffer result = client
             .getDocumentsResource()
             .downloadDocumentAsJpg(2558029173L);
 
-        assertThat(result).isEqualTo("Jpg".getBytes(StandardCharsets.UTF_8));
+        assertThat(result.array())
+            .isEqualTo("Jpg".getBytes(StandardCharsets.UTF_8));
     }
 
     @Test
@@ -215,10 +217,11 @@ public final class DocumentResourceTest extends EasybillRestClientTestcase {
             List.of(new DocumentDownloadPdfFixture())
         );
 
-        byte[] result = client
+        ByteBuffer result = client
             .getDocumentsResource()
             .downloadDocumentAsPdf(2558029173L);
 
-        assertThat(result).isEqualTo("Pdf".getBytes(StandardCharsets.UTF_8));
+        assertThat(result.array())
+            .isEqualTo("Pdf".getBytes(StandardCharsets.UTF_8));
     }
 }

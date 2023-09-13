@@ -3,11 +3,13 @@ package io.github.bolzer.easybill_java_sdk.contracts;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
 import java.io.File;
+import java.nio.ByteBuffer;
 import org.checkerframework.checker.initialization.qual.Initialized;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 public interface HttpClient {
-    byte[] getBytes(@NonNull String endpoint) throws EasybillRestException;
+    @NonNull
+    ByteBuffer getBytes(@NonNull String endpoint) throws EasybillRestException;
 
     @NonNull
     <T extends @Initialized @NonNull Object> T getJson(

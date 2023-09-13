@@ -10,6 +10,7 @@ import io.github.bolzer.easybill_java_sdk.requests.DocumentListQueryRequest;
 import io.github.bolzer.easybill_java_sdk.requests.DocumentRequest;
 import io.github.bolzer.easybill_java_sdk.requests.DocumentSendRequest;
 import io.github.bolzer.easybill_java_sdk.responses.PaginatedResponse;
+import java.nio.ByteBuffer;
 import org.checkerframework.checker.index.qual.Positive;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
@@ -112,14 +113,14 @@ public final class DocumentResource {
             );
     }
 
-    public byte[] downloadDocumentAsPdf(@Positive long documentId)
+    public @NonNull ByteBuffer downloadDocumentAsPdf(@Positive long documentId)
         throws EasybillRestException {
         return this.httpClient.getBytes(
                 RESOURCE_URL + "/" + documentId + "/pdf"
             );
     }
 
-    public byte[] downloadDocumentAsJpg(@Positive long documentId)
+    public @NonNull ByteBuffer downloadDocumentAsJpg(@Positive long documentId)
         throws EasybillRestException {
         return this.httpClient.getBytes(
                 RESOURCE_URL + "/" + documentId + "/jpg"

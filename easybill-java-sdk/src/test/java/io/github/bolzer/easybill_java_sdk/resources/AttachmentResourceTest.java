@@ -11,6 +11,7 @@ import io.github.bolzer.easybill_java_sdk.requests.AttachmentRequest;
 import io.github.bolzer.easybill_java_sdk.requests.GenericListQueryRequest;
 import io.github.bolzer.easybill_java_sdk.responses.PaginatedResponse;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -65,10 +66,14 @@ public final class AttachmentResourceTest extends EasybillRestClientTestcase {
 
         List<String> fileData = Arrays.asList("1", "2", "3", "4", "5");
 
-        byte[] data = client.getAttachmentResource().fetchAttachmentContent(1L);
+        ByteBuffer data = client
+            .getAttachmentResource()
+            .fetchAttachmentContent(1L);
 
         List<String> dataAsString = Arrays
-            .stream(new String(data, StandardCharsets.UTF_8).split("\n"))
+            .stream(
+                new String(data.array(), StandardCharsets.UTF_8).split("\n")
+            )
             .toList();
 
         assertThat(dataAsString).isEqualTo(fileData);

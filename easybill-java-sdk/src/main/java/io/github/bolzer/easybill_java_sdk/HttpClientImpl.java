@@ -13,6 +13,7 @@ import io.github.bolzer.easybill_java_sdk.interceptors.BearerAuthorizationInterc
 import io.github.bolzer.easybill_java_sdk.interceptors.UserAgentInterceptor;
 import java.io.File;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
@@ -47,7 +48,7 @@ public final class HttpClientImpl implements HttpClient {
                 .build();
     }
 
-    public byte[] getBytes(@NonNull String endpoint)
+    public @NonNull ByteBuffer getBytes(@NonNull String endpoint)
         throws EasybillRestException {
         try {
             try (
@@ -67,7 +68,7 @@ public final class HttpClientImpl implements HttpClient {
                     try (
                         BufferedSource bufferedSource = responseBody.source()
                     ) {
-                        return bufferedSource.readByteArray();
+                        return ByteBuffer.wrap(bufferedSource.readByteArray());
                     }
                 }
             }

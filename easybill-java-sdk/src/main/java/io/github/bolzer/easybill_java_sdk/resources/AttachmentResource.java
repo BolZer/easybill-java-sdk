@@ -8,6 +8,7 @@ import io.github.bolzer.easybill_java_sdk.requests.AttachmentRequest;
 import io.github.bolzer.easybill_java_sdk.requests.GenericListQueryRequest;
 import io.github.bolzer.easybill_java_sdk.responses.PaginatedResponse;
 import java.io.File;
+import java.nio.ByteBuffer;
 import org.checkerframework.checker.index.qual.Positive;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
@@ -61,7 +62,7 @@ public final class AttachmentResource {
             );
     }
 
-    public byte[] fetchAttachmentContent(long attachmentId)
+    public @NonNull ByteBuffer fetchAttachmentContent(long attachmentId)
         throws EasybillRestException {
         return this.httpClient.getBytes(
                 RESOURCE_URL + "/" + attachmentId + "/content"
