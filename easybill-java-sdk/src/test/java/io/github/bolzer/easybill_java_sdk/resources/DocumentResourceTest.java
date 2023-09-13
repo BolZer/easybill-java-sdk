@@ -66,14 +66,21 @@ public final class DocumentResourceTest extends EasybillRestClientTestcase {
     @Test
     public void testFetchDocument() throws EasybillRestException {
         Client client = bootstrapMockWebServerAndReturnClient(
-            List.of(new DocumentFetchFixture())
+            List.of(
+                new DocumentInvoiceFetchFixture(),
+                new DocumentReminderFetchFixture(),
+                new DocumentDunningFetchFixture()
+            )
         );
 
-        final Document response = client
-            .getDocumentsResource()
-            .fetchDocument(293594830L);
-
+        var response = client.getDocumentsResource().fetchDocument(293594830L);
         assertThat(response.id()).isEqualTo(293594830L);
+
+        response = client.getDocumentsResource().fetchDocument(2577328538L);
+        assertThat(response.id()).isEqualTo(2577328538L);
+
+        response = client.getDocumentsResource().fetchDocument(2577329243L);
+        assertThat(response.id()).isEqualTo(2577329243L);
     }
 
     @Test
