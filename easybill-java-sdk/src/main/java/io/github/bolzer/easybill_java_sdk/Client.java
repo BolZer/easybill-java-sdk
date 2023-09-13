@@ -8,7 +8,7 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 public final class Client {
 
     @NonNull
-    public static final String USER_AGENT = "easybill-JAVA-REST-SDK-0.2.1";
+    public static final String USER_AGENT = "easybill-JAVA-REST-SDK-0.3.0";
 
     @NonNull
     @SuppressFBWarnings
