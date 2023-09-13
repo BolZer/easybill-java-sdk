@@ -18,10 +18,10 @@ plugins {
     id("java-library")
     id("maven-publish")
     id("signing")
-    id("com.diffplug.spotless") version "6.20.0"
-    id("com.github.spotbugs") version "5.1.0"
-    id("org.checkerframework") version "0.6.30"
-    id("io.freefair.lombok") version "8.1.0"
+    id("com.diffplug.spotless") version "6.21.0"
+    id("com.github.spotbugs") version "5.1.3"
+    id("org.checkerframework") version "0.6.33"
+    id("io.freefair.lombok") version "8.3"
 }
 
 dependencies {
