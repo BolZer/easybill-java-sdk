@@ -1,6 +1,7 @@
 package io.github.bolzer.easybill_java_sdk.resources;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.github.bolzer.easybill_java_sdk.contracts.HttpClient;
 import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
 import io.github.bolzer.easybill_java_sdk.models.CustomerGroup;
@@ -16,6 +17,7 @@ public final class CustomerGroupResource {
     public static final String RESOURCE_URL = "/customer-groups";
 
     @NonNull
+    @SuppressFBWarnings
     private final HttpClient httpClient;
 
     public CustomerGroupResource(@NonNull HttpClient httpClient) {

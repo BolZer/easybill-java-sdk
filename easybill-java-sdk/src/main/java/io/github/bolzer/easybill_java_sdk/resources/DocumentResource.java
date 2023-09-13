@@ -1,6 +1,7 @@
 package io.github.bolzer.easybill_java_sdk.resources;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.github.bolzer.easybill_java_sdk.contracts.HttpClient;
 import io.github.bolzer.easybill_java_sdk.enums.DocumentSendType;
 import io.github.bolzer.easybill_java_sdk.enums.DocumentType;
@@ -20,6 +21,7 @@ public final class DocumentResource {
     public static final String RESOURCE_URL = "/documents";
 
     @NonNull
+    @SuppressFBWarnings
     private final HttpClient httpClient;
 
     public DocumentResource(@NonNull HttpClient httpClient) {

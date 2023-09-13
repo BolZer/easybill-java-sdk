@@ -1,6 +1,7 @@
 package io.github.bolzer.easybill_java_sdk.resources;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.github.bolzer.easybill_java_sdk.contracts.HttpClient;
 import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
 import io.github.bolzer.easybill_java_sdk.models.Stock;
@@ -16,6 +17,7 @@ public final class StockResource {
     public static final String RESOURCE_URL = "/stocks";
 
     @NonNull
+    @SuppressFBWarnings
     private final HttpClient httpClient;
 
     public StockResource(@NonNull HttpClient httpClient) {

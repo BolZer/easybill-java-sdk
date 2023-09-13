@@ -1,6 +1,7 @@
 package io.github.bolzer.easybill_java_sdk.resources;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.github.bolzer.easybill_java_sdk.contracts.HttpClient;
 import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
 import io.github.bolzer.easybill_java_sdk.models.PostBox;
@@ -15,6 +16,7 @@ public final class PostBoxResource {
     public static final String RESOURCE_URL = "/post-boxes";
 
     @NonNull
+    @SuppressFBWarnings
     private final HttpClient httpClient;
 
     public PostBoxResource(@NonNull HttpClient httpClient) {
