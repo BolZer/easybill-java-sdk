@@ -1,6 +1,7 @@
 package io.github.bolzer.easybill_java_sdk.resources;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.github.bolzer.easybill_java_sdk.contracts.HttpClient;
 import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
 import io.github.bolzer.easybill_java_sdk.models.PdfTemplate;
@@ -14,6 +15,7 @@ public final class PdfTemplateResource {
     public static final String RESOURCE_URL = "/pdf-templates";
 
     @NonNull
+    @SuppressFBWarnings
     private final HttpClient httpClient;
 
     public PdfTemplateResource(@NonNull HttpClient httpClient) {
@@ -22,17 +24,13 @@ public final class PdfTemplateResource {
 
     public @NonNull NonPaginatedResponse<PdfTemplate> fetchPdfTemplates()
         throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
-                RESOURCE_URL,
-                null,
-                new TypeReference<>() {}
-            );
+        return this.httpClient.getJson(RESOURCE_URL, new TypeReference<>() {});
     }
 
     public @NonNull NonPaginatedResponse<PdfTemplate> fetchPdfTemplates(
         PdfTemplateRequest pdfTemplateRequest
     ) throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
+        return this.httpClient.getJson(
                 RESOURCE_URL,
                 pdfTemplateRequest,
                 new TypeReference<>() {}

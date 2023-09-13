@@ -1,6 +1,7 @@
 package io.github.bolzer.easybill_java_sdk.resources;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.github.bolzer.easybill_java_sdk.contracts.HttpClient;
 import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
 import io.github.bolzer.easybill_java_sdk.models.Login;
@@ -15,6 +16,7 @@ public final class LoginResource {
     public static final String RESOURCE_URL = "/logins";
 
     @NonNull
+    @SuppressFBWarnings
     private final HttpClient httpClient;
 
     public LoginResource(@NonNull HttpClient httpClient) {
@@ -24,7 +26,7 @@ public final class LoginResource {
     public @NonNull PaginatedResponse<Login> fetchLogins(
         GenericListQueryRequest genericListQueryRequest
     ) throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
+        return this.httpClient.getJson(
                 RESOURCE_URL,
                 genericListQueryRequest,
                 new TypeReference<>() {}
@@ -33,9 +35,8 @@ public final class LoginResource {
 
     public @NonNull Login fetchLogin(@Positive long loginId)
         throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
+        return this.httpClient.getJson(
                 RESOURCE_URL + "/" + loginId,
-                null,
                 new TypeReference<>() {}
             );
     }

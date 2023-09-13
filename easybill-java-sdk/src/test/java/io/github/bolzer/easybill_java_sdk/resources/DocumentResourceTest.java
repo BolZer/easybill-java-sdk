@@ -14,6 +14,7 @@ import io.github.bolzer.easybill_java_sdk.requests.DocumentListQueryRequest;
 import io.github.bolzer.easybill_java_sdk.requests.DocumentRequest;
 import io.github.bolzer.easybill_java_sdk.requests.DocumentSendRequest;
 import io.github.bolzer.easybill_java_sdk.responses.PaginatedResponse;
+import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -66,14 +67,21 @@ public final class DocumentResourceTest extends EasybillRestClientTestcase {
     @Test
     public void testFetchDocument() throws EasybillRestException {
         Client client = bootstrapMockWebServerAndReturnClient(
-            List.of(new DocumentFetchFixture())
+            List.of(
+                new DocumentInvoiceFetchFixture(),
+                new DocumentReminderFetchFixture(),
+                new DocumentDunningFetchFixture()
+            )
         );
 
-        final Document response = client
-            .getDocumentsResource()
-            .fetchDocument(293594830L);
-
+        var response = client.getDocumentsResource().fetchDocument(293594830L);
         assertThat(response.id()).isEqualTo(293594830L);
+
+        response = client.getDocumentsResource().fetchDocument(2577328538L);
+        assertThat(response.id()).isEqualTo(2577328538L);
+
+        response = client.getDocumentsResource().fetchDocument(2577329243L);
+        assertThat(response.id()).isEqualTo(2577329243L);
     }
 
     @Test
@@ -147,6 +155,27 @@ public final class DocumentResourceTest extends EasybillRestClientTestcase {
     }
 
     @Test
+    public void testCopyDocument() throws EasybillRestException {
+        Client client = bootstrapMockWebServerAndReturnClient(
+            List.of(new DocumentCopyFixture())
+        );
+
+        Document document = client
+            .getDocumentsResource()
+            .copyDocument(
+                139L,
+                DocumentType.REMINDER,
+                DocumentRequest
+                    .builder()
+                    .number("Reminder for your Payment")
+                    .build()
+            );
+
+        assertThat(document.number()).isEqualTo("Reminder for your Payment");
+        assertThat(document.type()).isEqualTo(DocumentType.REMINDER);
+    }
+
+    @Test
     public void testSendDocument() throws EasybillRestException {
         Client client = bootstrapMockWebServerAndReturnClient(
             List.of(new DocumentEmailSendFixture())
@@ -174,11 +203,12 @@ public final class DocumentResourceTest extends EasybillRestClientTestcase {
             List.of(new DocumentDownloadJpgFixture())
         );
 
-        byte[] result = client
+        ByteBuffer result = client
             .getDocumentsResource()
             .downloadDocumentAsJpg(2558029173L);
 
-        assertThat(result).isEqualTo("Jpg".getBytes(StandardCharsets.UTF_8));
+        assertThat(result.array())
+            .isEqualTo("Jpg".getBytes(StandardCharsets.UTF_8));
     }
 
     @Test
@@ -187,10 +217,11 @@ public final class DocumentResourceTest extends EasybillRestClientTestcase {
             List.of(new DocumentDownloadPdfFixture())
         );
 
-        byte[] result = client
+        ByteBuffer result = client
             .getDocumentsResource()
             .downloadDocumentAsPdf(2558029173L);
 
-        assertThat(result).isEqualTo("Pdf".getBytes(StandardCharsets.UTF_8));
+        assertThat(result.array())
+            .isEqualTo("Pdf".getBytes(StandardCharsets.UTF_8));
     }
 }

@@ -1,6 +1,7 @@
 package io.github.bolzer.easybill_java_sdk.resources;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.github.bolzer.easybill_java_sdk.contracts.HttpClient;
 import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
 import io.github.bolzer.easybill_java_sdk.models.Stock;
@@ -16,6 +17,7 @@ public final class StockResource {
     public static final String RESOURCE_URL = "/stocks";
 
     @NonNull
+    @SuppressFBWarnings
     private final HttpClient httpClient;
 
     public StockResource(@NonNull HttpClient httpClient) {
@@ -25,7 +27,7 @@ public final class StockResource {
     public @NonNull PaginatedResponse<Stock> fetchStocks(
         StockListQueryRequest stockListQueryRequest
     ) throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
+        return this.httpClient.getJson(
                 RESOURCE_URL,
                 stockListQueryRequest,
                 new TypeReference<>() {}
@@ -34,16 +36,15 @@ public final class StockResource {
 
     public @NonNull Stock fetchStock(@Positive long stockId)
         throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
+        return this.httpClient.getJson(
                 RESOURCE_URL + "/" + stockId,
-                null,
                 new TypeReference<>() {}
             );
     }
 
     public @NonNull Stock createStock(@NonNull StockRequest stockRequest)
         throws EasybillRestException {
-        return this.httpClient.doPostRequestAndMarshalJsonInto(
+        return this.httpClient.postJson(
                 RESOURCE_URL,
                 stockRequest,
                 new TypeReference<>() {}

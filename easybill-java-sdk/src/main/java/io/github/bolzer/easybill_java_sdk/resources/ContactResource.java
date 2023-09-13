@@ -1,6 +1,7 @@
 package io.github.bolzer.easybill_java_sdk.resources;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.github.bolzer.easybill_java_sdk.contracts.HttpClient;
 import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
 import io.github.bolzer.easybill_java_sdk.models.Contact;
@@ -16,6 +17,7 @@ public final class ContactResource {
     public static final String RESOURCE_URL = "/customers";
 
     @NonNull
+    @SuppressFBWarnings
     private final HttpClient httpClient;
 
     public ContactResource(@NonNull HttpClient httpClient) {
@@ -26,7 +28,7 @@ public final class ContactResource {
         long customerId,
         GenericListQueryRequest genericListQueryRequest
     ) throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
+        return this.httpClient.getJson(
                 RESOURCE_URL + "/" + customerId + "/contacts",
                 genericListQueryRequest,
                 new TypeReference<>() {}
@@ -35,9 +37,8 @@ public final class ContactResource {
 
     public @NonNull Contact fetchContact(long customerId, long contactId)
         throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
+        return this.httpClient.getJson(
                 RESOURCE_URL + "/" + customerId + "/contacts/" + contactId,
-                null,
                 new TypeReference<>() {}
             );
     }
@@ -46,7 +47,7 @@ public final class ContactResource {
         long customerId,
         @NonNull ContactRequest contactRequest
     ) throws EasybillRestException {
-        return this.httpClient.doPostRequestAndMarshalJsonInto(
+        return this.httpClient.postJson(
                 RESOURCE_URL + "/" + customerId + "/contacts",
                 contactRequest,
                 new TypeReference<>() {}
@@ -58,7 +59,7 @@ public final class ContactResource {
         @Positive long contactId,
         @NonNull ContactRequest contactRequest
     ) throws EasybillRestException {
-        return this.httpClient.doPutRequestAndMarshalJsonInto(
+        return this.httpClient.putJson(
                 RESOURCE_URL + "/" + customerId + "/contacts/" + contactId,
                 contactRequest,
                 new TypeReference<>() {}
@@ -69,7 +70,7 @@ public final class ContactResource {
         @Positive long customerId,
         @Positive long contactId
     ) throws EasybillRestException {
-        this.httpClient.doDeleteRequest(
+        this.httpClient.delete(
                 RESOURCE_URL + "/" + customerId + "/contacts/" + contactId
             );
     }

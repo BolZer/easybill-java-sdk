@@ -1,6 +1,7 @@
 package io.github.bolzer.easybill_java_sdk.resources;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.github.bolzer.easybill_java_sdk.contracts.HttpClient;
 import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
 import io.github.bolzer.easybill_java_sdk.models.Customer;
@@ -16,6 +17,7 @@ public final class CustomerResource {
     public static final String RESOURCE_URL = "/customers";
 
     @NonNull
+    @SuppressFBWarnings
     private final HttpClient httpClient;
 
     public CustomerResource(@NonNull HttpClient httpClient) {
@@ -25,7 +27,7 @@ public final class CustomerResource {
     public @NonNull PaginatedResponse<Customer> fetchCustomers(
         CustomerListQueryRequest customerListRequest
     ) throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
+        return this.httpClient.getJson(
                 RESOURCE_URL,
                 customerListRequest,
                 new TypeReference<>() {}
@@ -34,9 +36,8 @@ public final class CustomerResource {
 
     public @NonNull Customer fetchCustomer(@Positive long customerId)
         throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
+        return this.httpClient.getJson(
                 RESOURCE_URL + "/" + customerId,
-                null,
                 new TypeReference<>() {}
             );
     }
@@ -44,7 +45,7 @@ public final class CustomerResource {
     public @NonNull Customer createCustomer(
         @NonNull CustomerRequest customerRequest
     ) throws EasybillRestException {
-        return this.httpClient.doPostRequestAndMarshalJsonInto(
+        return this.httpClient.postJson(
                 RESOURCE_URL,
                 customerRequest,
                 new TypeReference<>() {}
@@ -55,7 +56,7 @@ public final class CustomerResource {
         @Positive long customerId,
         @NonNull CustomerRequest customerRequest
     ) throws EasybillRestException {
-        return this.httpClient.doPutRequestAndMarshalJsonInto(
+        return this.httpClient.putJson(
                 RESOURCE_URL + "/" + customerId,
                 customerRequest,
                 new TypeReference<>() {}
@@ -64,6 +65,6 @@ public final class CustomerResource {
 
     public void deleteCustomer(@Positive long customerId)
         throws EasybillRestException {
-        this.httpClient.doDeleteRequest(RESOURCE_URL + "/" + customerId);
+        this.httpClient.delete(RESOURCE_URL + "/" + customerId);
     }
 }

@@ -1,6 +1,7 @@
 package io.github.bolzer.easybill_java_sdk.resources;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.github.bolzer.easybill_java_sdk.contracts.HttpClient;
 import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
 import io.github.bolzer.easybill_java_sdk.models.PositionDiscount;
@@ -18,6 +19,7 @@ public final class DiscountResource {
     public static final String RESOURCE_URL = "/discounts";
 
     @NonNull
+    @SuppressFBWarnings
     private final HttpClient httpClient;
 
     public DiscountResource(@NonNull HttpClient httpClient) {
@@ -27,7 +29,7 @@ public final class DiscountResource {
     public @NonNull PaginatedResponse<PositionDiscount> fetchPositionDiscounts(
         @NonNull DiscountListQueryRequest discountListQueryRequest
     ) throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
+        return this.httpClient.getJson(
                 RESOURCE_URL + "/position",
                 discountListQueryRequest,
                 new TypeReference<>() {}
@@ -37,7 +39,7 @@ public final class DiscountResource {
     public @NonNull PositionDiscount createPositionDiscount(
         @NonNull PositionDiscountRequest positionDiscountRequest
     ) throws EasybillRestException {
-        return this.httpClient.doPostRequestAndMarshalJsonInto(
+        return this.httpClient.postJson(
                 RESOURCE_URL + "/position",
                 positionDiscountRequest,
                 new TypeReference<>() {}
@@ -47,9 +49,8 @@ public final class DiscountResource {
     public @NonNull PositionDiscount fetchPositionDiscount(
         @Positive long positionDiscountId
     ) throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
+        return this.httpClient.getJson(
                 RESOURCE_URL + "/position/" + positionDiscountId,
-                null,
                 new TypeReference<>() {}
             );
     }
@@ -58,7 +59,7 @@ public final class DiscountResource {
         @Positive long positionDiscountId,
         @NonNull PositionDiscountRequest positionDiscountRequest
     ) throws EasybillRestException {
-        return this.httpClient.doPutRequestAndMarshalJsonInto(
+        return this.httpClient.putJson(
                 RESOURCE_URL + "/position/" + positionDiscountId,
                 positionDiscountRequest,
                 new TypeReference<>() {}
@@ -67,7 +68,7 @@ public final class DiscountResource {
 
     public void deletePositionDiscount(@Positive long positionDiscountId)
         throws EasybillRestException {
-        this.httpClient.doDeleteRequest(
+        this.httpClient.delete(
                 RESOURCE_URL + "/position/" + positionDiscountId
             );
     }
@@ -75,7 +76,7 @@ public final class DiscountResource {
     public @NonNull PaginatedResponse<PositionGroupDiscount> fetchPositionGroupDiscounts(
         @NonNull DiscountListQueryRequest discountListQueryRequest
     ) throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
+        return this.httpClient.getJson(
                 RESOURCE_URL + "/position-group",
                 discountListQueryRequest,
                 new TypeReference<>() {}
@@ -85,7 +86,7 @@ public final class DiscountResource {
     public @NonNull PositionGroupDiscount createPositionGroupDiscount(
         @NonNull PositionGroupDiscountRequest positionGroupDiscountRequest
     ) throws EasybillRestException {
-        return this.httpClient.doPostRequestAndMarshalJsonInto(
+        return this.httpClient.postJson(
                 RESOURCE_URL + "/position-group",
                 positionGroupDiscountRequest,
                 new TypeReference<>() {}
@@ -95,9 +96,8 @@ public final class DiscountResource {
     public @NonNull PositionGroupDiscount fetchPositionGroupDiscount(
         @Positive long positionDiscountId
     ) throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
+        return this.httpClient.getJson(
                 RESOURCE_URL + "/position-group/" + positionDiscountId,
-                null,
                 new TypeReference<>() {}
             );
     }
@@ -106,7 +106,7 @@ public final class DiscountResource {
         @Positive long positionDiscountId,
         @NonNull PositionGroupDiscountRequest positionGroupDiscountRequest
     ) throws EasybillRestException {
-        return this.httpClient.doPutRequestAndMarshalJsonInto(
+        return this.httpClient.putJson(
                 RESOURCE_URL + "/position-group/" + positionDiscountId,
                 positionGroupDiscountRequest,
                 new TypeReference<>() {}
@@ -115,7 +115,7 @@ public final class DiscountResource {
 
     public void deletePositionGroupDiscount(@Positive long positionDiscountId)
         throws EasybillRestException {
-        this.httpClient.doDeleteRequest(
+        this.httpClient.delete(
                 RESOURCE_URL + "/position-group/" + positionDiscountId
             );
     }

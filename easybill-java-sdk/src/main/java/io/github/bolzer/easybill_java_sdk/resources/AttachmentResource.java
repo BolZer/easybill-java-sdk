@@ -1,11 +1,16 @@
 package io.github.bolzer.easybill_java_sdk.resources;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.github.bolzer.easybill_java_sdk.contracts.HttpClient;
 import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
 import io.github.bolzer.easybill_java_sdk.models.Attachment;
+import io.github.bolzer.easybill_java_sdk.requests.AttachmentRequest;
 import io.github.bolzer.easybill_java_sdk.requests.GenericListQueryRequest;
 import io.github.bolzer.easybill_java_sdk.responses.PaginatedResponse;
+import java.io.File;
+import java.nio.ByteBuffer;
+import org.checkerframework.checker.index.qual.Positive;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 public final class AttachmentResource {
@@ -14,6 +19,7 @@ public final class AttachmentResource {
     public static final String RESOURCE_URL = "/attachments";
 
     @NonNull
+    @SuppressFBWarnings
     private final HttpClient httpClient;
 
     public AttachmentResource(@NonNull HttpClient httpClient) {
@@ -23,7 +29,7 @@ public final class AttachmentResource {
     public @NonNull PaginatedResponse<Attachment> fetchAttachments(
         GenericListQueryRequest genericListQueryRequest
     ) throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
+        return this.httpClient.getJson(
                 RESOURCE_URL,
                 genericListQueryRequest,
                 new TypeReference<>() {}
@@ -32,10 +38,41 @@ public final class AttachmentResource {
 
     public @NonNull Attachment fetchAttachment(long attachmentId)
         throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
+        return this.httpClient.getJson(
                 RESOURCE_URL + "/" + attachmentId,
-                null,
                 new TypeReference<>() {}
             );
+    }
+
+    public @NonNull Attachment createAttachment(File file)
+        throws EasybillRestException {
+        return this.httpClient.postFile(
+                RESOURCE_URL,
+                file,
+                new TypeReference<>() {}
+            );
+    }
+
+    public @NonNull Attachment updateAttachment(
+        @Positive long attachmentId,
+        @NonNull AttachmentRequest attachmentRequest
+    ) throws EasybillRestException {
+        return this.httpClient.putJson(
+                RESOURCE_URL + "/" + attachmentId,
+                attachmentRequest,
+                new TypeReference<>() {}
+            );
+    }
+
+    public @NonNull ByteBuffer fetchAttachmentContent(long attachmentId)
+        throws EasybillRestException {
+        return this.httpClient.getBytes(
+                RESOURCE_URL + "/" + attachmentId + "/content"
+            );
+    }
+
+    public void deleteAttachment(@Positive long attachmentId)
+        throws EasybillRestException {
+        this.httpClient.delete(RESOURCE_URL + "/" + attachmentId);
     }
 }

@@ -5,7 +5,7 @@ import okhttp3.mockwebserver.MockResponse;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
-public final class DocumentFetchFixture implements Fixture {
+public final class DocumentInvoiceFetchFixture implements Fixture {
 
     public @NonNull String getRequestMethod() {
         return "GET";

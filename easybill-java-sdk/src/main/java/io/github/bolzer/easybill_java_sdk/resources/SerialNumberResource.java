@@ -1,6 +1,7 @@
 package io.github.bolzer.easybill_java_sdk.resources;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.github.bolzer.easybill_java_sdk.contracts.HttpClient;
 import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
 import io.github.bolzer.easybill_java_sdk.models.SerialNumber;
@@ -16,6 +17,7 @@ public final class SerialNumberResource {
     public static final String RESOURCE_URL = "/serial-numbers";
 
     @NonNull
+    @SuppressFBWarnings
     private final HttpClient httpClient;
 
     public SerialNumberResource(@NonNull HttpClient httpClient) {
@@ -25,7 +27,7 @@ public final class SerialNumberResource {
     public @NonNull PaginatedResponse<SerialNumber> fetchSerialNumbers(
         SerialNumberListQueryRequest serialNumberListQueryRequest
     ) throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
+        return this.httpClient.getJson(
                 RESOURCE_URL,
                 serialNumberListQueryRequest,
                 new TypeReference<>() {}
@@ -35,9 +37,8 @@ public final class SerialNumberResource {
     public @NonNull SerialNumber fetchSerialNumber(
         @Positive long serialNumberId
     ) throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
+        return this.httpClient.getJson(
                 RESOURCE_URL + "/" + serialNumberId,
-                null,
                 new TypeReference<>() {}
             );
     }
@@ -45,7 +46,7 @@ public final class SerialNumberResource {
     public @NonNull SerialNumber createSerialNumber(
         @NonNull SerialNumberRequest serialNumberRequest
     ) throws EasybillRestException {
-        return this.httpClient.doPostRequestAndMarshalJsonInto(
+        return this.httpClient.postJson(
                 RESOURCE_URL,
                 serialNumberRequest,
                 new TypeReference<>() {}
@@ -54,6 +55,6 @@ public final class SerialNumberResource {
 
     public void deleteSerialNumber(@Positive long serialNumberId)
         throws EasybillRestException {
-        this.httpClient.doDeleteRequest(RESOURCE_URL + "/" + serialNumberId);
+        this.httpClient.delete(RESOURCE_URL + "/" + serialNumberId);
     }
 }

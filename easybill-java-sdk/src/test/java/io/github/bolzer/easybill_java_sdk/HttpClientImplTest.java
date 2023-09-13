@@ -14,7 +14,7 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
-public final class HttpClientWrapperTest {
+public final class HttpClientImplTest {
 
     static Stream<Triple<@NonNull QueryRequest, @NonNull String, @NonNull String>> provideQueryRequests() {
         return Stream.of(
@@ -41,7 +41,7 @@ public final class HttpClientWrapperTest {
         @NonNull Triple<@NonNull QueryRequest, @NonNull String, @NonNull String> value
     )
         throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        HttpClientWrapper client = new HttpClientWrapper("");
+        HttpClientImpl client = new HttpClientImpl("");
 
         Method buildUrlMethod = client
             .getClass()

@@ -1,14 +1,17 @@
 package io.github.bolzer.easybill_java_sdk.resources;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.github.bolzer.easybill_java_sdk.contracts.HttpClient;
 import io.github.bolzer.easybill_java_sdk.enums.DocumentSendType;
+import io.github.bolzer.easybill_java_sdk.enums.DocumentType;
 import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
 import io.github.bolzer.easybill_java_sdk.models.Document;
 import io.github.bolzer.easybill_java_sdk.requests.DocumentListQueryRequest;
 import io.github.bolzer.easybill_java_sdk.requests.DocumentRequest;
 import io.github.bolzer.easybill_java_sdk.requests.DocumentSendRequest;
 import io.github.bolzer.easybill_java_sdk.responses.PaginatedResponse;
+import java.nio.ByteBuffer;
 import org.checkerframework.checker.index.qual.Positive;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
@@ -18,6 +21,7 @@ public final class DocumentResource {
     public static final String RESOURCE_URL = "/documents";
 
     @NonNull
+    @SuppressFBWarnings
     private final HttpClient httpClient;
 
     public DocumentResource(@NonNull HttpClient httpClient) {
@@ -27,7 +31,7 @@ public final class DocumentResource {
     public @NonNull PaginatedResponse<Document> fetchDocuments(
         DocumentListQueryRequest documentListRequest
     ) throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
+        return this.httpClient.getJson(
                 RESOURCE_URL,
                 documentListRequest,
                 new TypeReference<>() {}
@@ -36,9 +40,8 @@ public final class DocumentResource {
 
     public @NonNull Document fetchDocument(@Positive long documentId)
         throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
+        return this.httpClient.getJson(
                 RESOURCE_URL + "/" + documentId,
-                null,
                 new TypeReference<>() {}
             );
     }
@@ -46,7 +49,7 @@ public final class DocumentResource {
     public @NonNull Document createDocument(
         @NonNull DocumentRequest documentRequest
     ) throws EasybillRestException {
-        return this.httpClient.doPostRequestAndMarshalJsonInto(
+        return this.httpClient.postJson(
                 RESOURCE_URL,
                 documentRequest,
                 new TypeReference<>() {}
@@ -57,7 +60,7 @@ public final class DocumentResource {
         @Positive long documentId,
         @NonNull DocumentRequest documentUpdateRequest
     ) throws EasybillRestException {
-        return this.httpClient.doPutRequestAndMarshalJsonInto(
+        return this.httpClient.putJson(
                 RESOURCE_URL + "/" + documentId,
                 documentUpdateRequest,
                 new TypeReference<>() {}
@@ -68,8 +71,20 @@ public final class DocumentResource {
         @Positive long documentId,
         @NonNull DocumentRequest documentUpdateRequest
     ) throws EasybillRestException {
-        return this.httpClient.doPutRequestAndMarshalJsonInto(
+        return this.httpClient.putJson(
                 RESOURCE_URL + "/" + documentId + "/done",
+                documentUpdateRequest,
+                new TypeReference<>() {}
+            );
+    }
+
+    public @NonNull Document copyDocument(
+        @Positive long documentId,
+        @NonNull DocumentType targetType,
+        @NonNull DocumentRequest documentUpdateRequest
+    ) throws EasybillRestException {
+        return this.httpClient.postJson(
+                RESOURCE_URL + "/" + documentId + "/" + targetType,
                 documentUpdateRequest,
                 new TypeReference<>() {}
             );
@@ -77,14 +92,12 @@ public final class DocumentResource {
 
     public void deleteDocument(@Positive long documentId)
         throws EasybillRestException {
-        this.httpClient.doDeleteRequest(RESOURCE_URL + "/" + documentId);
+        this.httpClient.delete(RESOURCE_URL + "/" + documentId);
     }
 
     public void cancelDocument(@Positive long documentId)
         throws EasybillRestException {
-        this.httpClient.doPostRequestWithoutPayload(
-                RESOURCE_URL + "/" + documentId + "/cancel"
-            );
+        this.httpClient.postEmpty(RESOURCE_URL + "/" + documentId + "/cancel");
     }
 
     public void sendDocument(
@@ -92,7 +105,7 @@ public final class DocumentResource {
         @NonNull DocumentSendType documentSendType,
         @NonNull DocumentSendRequest documentSendRequest
     ) throws EasybillRestException {
-        this.httpClient.doPostRequestWithPayload(
+        this.httpClient.postJson(
                 RESOURCE_URL +
                 "/" +
                 documentId +
@@ -102,16 +115,16 @@ public final class DocumentResource {
             );
     }
 
-    public byte[] downloadDocumentAsPdf(@Positive long documentId)
+    public @NonNull ByteBuffer downloadDocumentAsPdf(@Positive long documentId)
         throws EasybillRestException {
-        return this.httpClient.downloadFile(
+        return this.httpClient.getBytes(
                 RESOURCE_URL + "/" + documentId + "/pdf"
             );
     }
 
-    public byte[] downloadDocumentAsJpg(@Positive long documentId)
+    public @NonNull ByteBuffer downloadDocumentAsJpg(@Positive long documentId)
         throws EasybillRestException {
-        return this.httpClient.downloadFile(
+        return this.httpClient.getBytes(
                 RESOURCE_URL + "/" + documentId + "/jpg"
             );
     }

@@ -1,6 +1,7 @@
 package io.github.bolzer.easybill_java_sdk.resources;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.github.bolzer.easybill_java_sdk.contracts.HttpClient;
 import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
 import io.github.bolzer.easybill_java_sdk.models.PositionGroup;
@@ -16,6 +17,7 @@ public final class PositionGroupResource {
     public static final String RESOURCE_URL = "/position-groups";
 
     @NonNull
+    @SuppressFBWarnings
     private final HttpClient httpClient;
 
     public PositionGroupResource(@NonNull HttpClient httpClient) {
@@ -25,7 +27,7 @@ public final class PositionGroupResource {
     public @NonNull PaginatedResponse<PositionGroup> fetchPositionGroups(
         GenericListQueryRequest genericListQueryRequest
     ) throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
+        return this.httpClient.getJson(
                 RESOURCE_URL,
                 genericListQueryRequest,
                 new TypeReference<>() {}
@@ -35,9 +37,8 @@ public final class PositionGroupResource {
     public @NonNull PositionGroup fetchPositionGroup(
         @Positive long positionGroupId
     ) throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
+        return this.httpClient.getJson(
                 RESOURCE_URL + "/" + positionGroupId,
-                null,
                 new TypeReference<>() {}
             );
     }
@@ -45,7 +46,7 @@ public final class PositionGroupResource {
     public @NonNull PositionGroup createPositionGroup(
         @NonNull PositionGroupRequest positionGroupRequest
     ) throws EasybillRestException {
-        return this.httpClient.doPostRequestAndMarshalJsonInto(
+        return this.httpClient.postJson(
                 RESOURCE_URL,
                 positionGroupRequest,
                 new TypeReference<>() {}
@@ -56,7 +57,7 @@ public final class PositionGroupResource {
         @Positive long positionGroupId,
         @NonNull PositionGroupRequest positionGroupRequest
     ) throws EasybillRestException {
-        return this.httpClient.doPutRequestAndMarshalJsonInto(
+        return this.httpClient.putJson(
                 RESOURCE_URL + "/" + positionGroupId,
                 positionGroupRequest,
                 new TypeReference<>() {}
@@ -65,6 +66,6 @@ public final class PositionGroupResource {
 
     public void deletePositionGroup(@Positive long positionGroupId)
         throws EasybillRestException {
-        this.httpClient.doDeleteRequest(RESOURCE_URL + "/" + positionGroupId);
+        this.httpClient.delete(RESOURCE_URL + "/" + positionGroupId);
     }
 }
