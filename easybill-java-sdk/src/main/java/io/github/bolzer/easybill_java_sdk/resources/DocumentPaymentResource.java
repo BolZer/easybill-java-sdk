@@ -25,7 +25,7 @@ public final class DocumentPaymentResource {
     public @NonNull PaginatedResponse<DocumentPayment> fetchDocumentPayments(
         DocumentPaymentListQueryRequest documentPaymentListQueryRequest
     ) throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
+        return this.httpClient.getJson(
                 RESOURCE_URL,
                 documentPaymentListQueryRequest,
                 new TypeReference<>() {}
@@ -35,9 +35,8 @@ public final class DocumentPaymentResource {
     public @NonNull DocumentPayment fetchDocumentPayment(
         @Positive long documentPaymentId
     ) throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
+        return this.httpClient.getJson(
                 RESOURCE_URL + "/" + documentPaymentId,
-                null,
                 new TypeReference<>() {}
             );
     }
@@ -45,7 +44,7 @@ public final class DocumentPaymentResource {
     public @NonNull DocumentPayment createDocumentPayment(
         @NonNull DocumentPaymentRequest documentPaymentRequest
     ) throws EasybillRestException {
-        return this.httpClient.doPostRequestAndMarshalJsonInto(
+        return this.httpClient.postJson(
                 RESOURCE_URL,
                 documentPaymentRequest,
                 new TypeReference<>() {}
@@ -54,6 +53,6 @@ public final class DocumentPaymentResource {
 
     public void deleteDocumentPayment(@Positive long documentPaymentId)
         throws EasybillRestException {
-        this.httpClient.doDeleteRequest(RESOURCE_URL + "/" + documentPaymentId);
+        this.httpClient.delete(RESOURCE_URL + "/" + documentPaymentId);
     }
 }

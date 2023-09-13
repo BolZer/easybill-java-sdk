@@ -22,17 +22,13 @@ public final class PdfTemplateResource {
 
     public @NonNull NonPaginatedResponse<PdfTemplate> fetchPdfTemplates()
         throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
-                RESOURCE_URL,
-                null,
-                new TypeReference<>() {}
-            );
+        return this.httpClient.getJson(RESOURCE_URL, new TypeReference<>() {});
     }
 
     public @NonNull NonPaginatedResponse<PdfTemplate> fetchPdfTemplates(
         PdfTemplateRequest pdfTemplateRequest
     ) throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
+        return this.httpClient.getJson(
                 RESOURCE_URL,
                 pdfTemplateRequest,
                 new TypeReference<>() {}

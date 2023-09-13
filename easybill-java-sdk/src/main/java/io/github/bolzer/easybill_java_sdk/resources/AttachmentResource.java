@@ -26,7 +26,7 @@ public final class AttachmentResource {
     public @NonNull PaginatedResponse<Attachment> fetchAttachments(
         GenericListQueryRequest genericListQueryRequest
     ) throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
+        return this.httpClient.getJson(
                 RESOURCE_URL,
                 genericListQueryRequest,
                 new TypeReference<>() {}
@@ -35,16 +35,15 @@ public final class AttachmentResource {
 
     public @NonNull Attachment fetchAttachment(long attachmentId)
         throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
+        return this.httpClient.getJson(
                 RESOURCE_URL + "/" + attachmentId,
-                null,
                 new TypeReference<>() {}
             );
     }
 
     public @NonNull Attachment createAttachment(File file)
         throws EasybillRestException {
-        return this.httpClient.uploadFile(
+        return this.httpClient.postFile(
                 RESOURCE_URL,
                 file,
                 new TypeReference<>() {}
@@ -55,7 +54,7 @@ public final class AttachmentResource {
         @Positive long attachmentId,
         @NonNull AttachmentRequest attachmentRequest
     ) throws EasybillRestException {
-        return this.httpClient.doPutRequestAndMarshalJsonInto(
+        return this.httpClient.putJson(
                 RESOURCE_URL + "/" + attachmentId,
                 attachmentRequest,
                 new TypeReference<>() {}
@@ -64,13 +63,13 @@ public final class AttachmentResource {
 
     public byte[] fetchAttachmentContent(long attachmentId)
         throws EasybillRestException {
-        return this.httpClient.downloadFile(
+        return this.httpClient.getBytes(
                 RESOURCE_URL + "/" + attachmentId + "/content"
             );
     }
 
     public void deleteAttachment(@Positive long attachmentId)
         throws EasybillRestException {
-        this.httpClient.doDeleteRequest(RESOURCE_URL + "/" + attachmentId);
+        this.httpClient.delete(RESOURCE_URL + "/" + attachmentId);
     }
 }

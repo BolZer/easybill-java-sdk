@@ -26,7 +26,7 @@ public final class ContactResource {
         long customerId,
         GenericListQueryRequest genericListQueryRequest
     ) throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
+        return this.httpClient.getJson(
                 RESOURCE_URL + "/" + customerId + "/contacts",
                 genericListQueryRequest,
                 new TypeReference<>() {}
@@ -35,9 +35,8 @@ public final class ContactResource {
 
     public @NonNull Contact fetchContact(long customerId, long contactId)
         throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
+        return this.httpClient.getJson(
                 RESOURCE_URL + "/" + customerId + "/contacts/" + contactId,
-                null,
                 new TypeReference<>() {}
             );
     }
@@ -46,7 +45,7 @@ public final class ContactResource {
         long customerId,
         @NonNull ContactRequest contactRequest
     ) throws EasybillRestException {
-        return this.httpClient.doPostRequestAndMarshalJsonInto(
+        return this.httpClient.postJson(
                 RESOURCE_URL + "/" + customerId + "/contacts",
                 contactRequest,
                 new TypeReference<>() {}
@@ -58,7 +57,7 @@ public final class ContactResource {
         @Positive long contactId,
         @NonNull ContactRequest contactRequest
     ) throws EasybillRestException {
-        return this.httpClient.doPutRequestAndMarshalJsonInto(
+        return this.httpClient.putJson(
                 RESOURCE_URL + "/" + customerId + "/contacts/" + contactId,
                 contactRequest,
                 new TypeReference<>() {}
@@ -69,7 +68,7 @@ public final class ContactResource {
         @Positive long customerId,
         @Positive long contactId
     ) throws EasybillRestException {
-        this.httpClient.doDeleteRequest(
+        this.httpClient.delete(
                 RESOURCE_URL + "/" + customerId + "/contacts/" + contactId
             );
     }

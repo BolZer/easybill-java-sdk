@@ -24,7 +24,7 @@ public final class LoginResource {
     public @NonNull PaginatedResponse<Login> fetchLogins(
         GenericListQueryRequest genericListQueryRequest
     ) throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
+        return this.httpClient.getJson(
                 RESOURCE_URL,
                 genericListQueryRequest,
                 new TypeReference<>() {}
@@ -33,9 +33,8 @@ public final class LoginResource {
 
     public @NonNull Login fetchLogin(@Positive long loginId)
         throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
+        return this.httpClient.getJson(
                 RESOURCE_URL + "/" + loginId,
-                null,
                 new TypeReference<>() {}
             );
     }

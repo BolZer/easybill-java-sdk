@@ -25,7 +25,7 @@ public final class StockResource {
     public @NonNull PaginatedResponse<Stock> fetchStocks(
         StockListQueryRequest stockListQueryRequest
     ) throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
+        return this.httpClient.getJson(
                 RESOURCE_URL,
                 stockListQueryRequest,
                 new TypeReference<>() {}
@@ -34,16 +34,15 @@ public final class StockResource {
 
     public @NonNull Stock fetchStock(@Positive long stockId)
         throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
+        return this.httpClient.getJson(
                 RESOURCE_URL + "/" + stockId,
-                null,
                 new TypeReference<>() {}
             );
     }
 
     public @NonNull Stock createStock(@NonNull StockRequest stockRequest)
         throws EasybillRestException {
-        return this.httpClient.doPostRequestAndMarshalJsonInto(
+        return this.httpClient.postJson(
                 RESOURCE_URL,
                 stockRequest,
                 new TypeReference<>() {}

@@ -25,7 +25,7 @@ public final class ProjectResource {
     public @NonNull PaginatedResponse<Project> fetchProjects(
         ProjectListQueryRequest projectListQueryRequest
     ) throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
+        return this.httpClient.getJson(
                 RESOURCE_URL,
                 projectListQueryRequest,
                 new TypeReference<>() {}
@@ -34,9 +34,8 @@ public final class ProjectResource {
 
     public @NonNull Project fetchProject(@Positive long projectId)
         throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
+        return this.httpClient.getJson(
                 RESOURCE_URL + "/" + projectId,
-                null,
                 new TypeReference<>() {}
             );
     }
@@ -44,7 +43,7 @@ public final class ProjectResource {
     public @NonNull Project createProject(
         @NonNull ProjectRequest projectRequest
     ) throws EasybillRestException {
-        return this.httpClient.doPostRequestAndMarshalJsonInto(
+        return this.httpClient.postJson(
                 RESOURCE_URL,
                 projectRequest,
                 new TypeReference<>() {}
@@ -55,7 +54,7 @@ public final class ProjectResource {
         @Positive long projectId,
         @NonNull ProjectRequest projectRequest
     ) throws EasybillRestException {
-        return this.httpClient.doPutRequestAndMarshalJsonInto(
+        return this.httpClient.putJson(
                 RESOURCE_URL + "/" + projectId,
                 projectRequest,
                 new TypeReference<>() {}
@@ -64,6 +63,6 @@ public final class ProjectResource {
 
     public void deleteProject(@Positive long projectId)
         throws EasybillRestException {
-        this.httpClient.doDeleteRequest(RESOURCE_URL + "/" + projectId);
+        this.httpClient.delete(RESOURCE_URL + "/" + projectId);
     }
 }

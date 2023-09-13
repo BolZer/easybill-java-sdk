@@ -27,7 +27,7 @@ public final class DocumentResource {
     public @NonNull PaginatedResponse<Document> fetchDocuments(
         DocumentListQueryRequest documentListRequest
     ) throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
+        return this.httpClient.getJson(
                 RESOURCE_URL,
                 documentListRequest,
                 new TypeReference<>() {}
@@ -36,9 +36,8 @@ public final class DocumentResource {
 
     public @NonNull Document fetchDocument(@Positive long documentId)
         throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
+        return this.httpClient.getJson(
                 RESOURCE_URL + "/" + documentId,
-                null,
                 new TypeReference<>() {}
             );
     }
@@ -46,7 +45,7 @@ public final class DocumentResource {
     public @NonNull Document createDocument(
         @NonNull DocumentRequest documentRequest
     ) throws EasybillRestException {
-        return this.httpClient.doPostRequestAndMarshalJsonInto(
+        return this.httpClient.postJson(
                 RESOURCE_URL,
                 documentRequest,
                 new TypeReference<>() {}
@@ -57,7 +56,7 @@ public final class DocumentResource {
         @Positive long documentId,
         @NonNull DocumentRequest documentUpdateRequest
     ) throws EasybillRestException {
-        return this.httpClient.doPutRequestAndMarshalJsonInto(
+        return this.httpClient.putJson(
                 RESOURCE_URL + "/" + documentId,
                 documentUpdateRequest,
                 new TypeReference<>() {}
@@ -68,7 +67,7 @@ public final class DocumentResource {
         @Positive long documentId,
         @NonNull DocumentRequest documentUpdateRequest
     ) throws EasybillRestException {
-        return this.httpClient.doPutRequestAndMarshalJsonInto(
+        return this.httpClient.putJson(
                 RESOURCE_URL + "/" + documentId + "/done",
                 documentUpdateRequest,
                 new TypeReference<>() {}
@@ -77,14 +76,12 @@ public final class DocumentResource {
 
     public void deleteDocument(@Positive long documentId)
         throws EasybillRestException {
-        this.httpClient.doDeleteRequest(RESOURCE_URL + "/" + documentId);
+        this.httpClient.delete(RESOURCE_URL + "/" + documentId);
     }
 
     public void cancelDocument(@Positive long documentId)
         throws EasybillRestException {
-        this.httpClient.doPostRequestWithoutPayload(
-                RESOURCE_URL + "/" + documentId + "/cancel"
-            );
+        this.httpClient.postEmpty(RESOURCE_URL + "/" + documentId + "/cancel");
     }
 
     public void sendDocument(
@@ -92,7 +89,7 @@ public final class DocumentResource {
         @NonNull DocumentSendType documentSendType,
         @NonNull DocumentSendRequest documentSendRequest
     ) throws EasybillRestException {
-        this.httpClient.doPostRequestWithPayload(
+        this.httpClient.postJson(
                 RESOURCE_URL +
                 "/" +
                 documentId +
@@ -104,14 +101,14 @@ public final class DocumentResource {
 
     public byte[] downloadDocumentAsPdf(@Positive long documentId)
         throws EasybillRestException {
-        return this.httpClient.downloadFile(
+        return this.httpClient.getBytes(
                 RESOURCE_URL + "/" + documentId + "/pdf"
             );
     }
 
     public byte[] downloadDocumentAsJpg(@Positive long documentId)
         throws EasybillRestException {
-        return this.httpClient.downloadFile(
+        return this.httpClient.getBytes(
                 RESOURCE_URL + "/" + documentId + "/jpg"
             );
     }

@@ -25,7 +25,7 @@ public final class CustomerGroupResource {
     public @NonNull PaginatedResponse<CustomerGroup> fetchCustomerGroups(
         GenericListQueryRequest genericListQueryRequest
     ) throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
+        return this.httpClient.getJson(
                 RESOURCE_URL,
                 genericListQueryRequest,
                 new TypeReference<>() {}
@@ -35,9 +35,8 @@ public final class CustomerGroupResource {
     public @NonNull CustomerGroup fetchCustomerGroup(
         @Positive long customerGroupId
     ) throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
+        return this.httpClient.getJson(
                 RESOURCE_URL + "/" + customerGroupId,
-                null,
                 new TypeReference<>() {}
             );
     }
@@ -45,7 +44,7 @@ public final class CustomerGroupResource {
     public @NonNull CustomerGroup createCustomerGroup(
         @NonNull CustomerGroupRequest customerGroupRequest
     ) throws EasybillRestException {
-        return this.httpClient.doPostRequestAndMarshalJsonInto(
+        return this.httpClient.postJson(
                 RESOURCE_URL,
                 customerGroupRequest,
                 new TypeReference<>() {}
@@ -56,7 +55,7 @@ public final class CustomerGroupResource {
         @Positive long customerId,
         @NonNull CustomerGroupRequest customerGroupRequest
     ) throws EasybillRestException {
-        return this.httpClient.doPutRequestAndMarshalJsonInto(
+        return this.httpClient.putJson(
                 RESOURCE_URL + "/" + customerId,
                 customerGroupRequest,
                 new TypeReference<>() {}
@@ -65,6 +64,6 @@ public final class CustomerGroupResource {
 
     public void deleteCustomerGroup(@Positive long customerGroupId)
         throws EasybillRestException {
-        this.httpClient.doDeleteRequest(RESOURCE_URL + "/" + customerGroupId);
+        this.httpClient.delete(RESOURCE_URL + "/" + customerGroupId);
     }
 }

@@ -25,7 +25,7 @@ public final class TextTemplateResource {
     public @NonNull PaginatedResponse<TextTemplate> fetchTextTemplates(
         GenericListQueryRequest genericListQueryRequest
     ) throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
+        return this.httpClient.getJson(
                 RESOURCE_URL,
                 genericListQueryRequest,
                 new TypeReference<>() {}
@@ -35,9 +35,8 @@ public final class TextTemplateResource {
     public @NonNull TextTemplate fetchTextTemplate(
         @Positive long textTemplateId
     ) throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
+        return this.httpClient.getJson(
                 RESOURCE_URL + "/" + textTemplateId,
-                null,
                 new TypeReference<>() {}
             );
     }
@@ -45,7 +44,7 @@ public final class TextTemplateResource {
     public @NonNull TextTemplate createTextTemplate(
         @NonNull TextTemplateRequest textTemplateRequest
     ) throws EasybillRestException {
-        return this.httpClient.doPostRequestAndMarshalJsonInto(
+        return this.httpClient.postJson(
                 RESOURCE_URL,
                 textTemplateRequest,
                 new TypeReference<>() {}
@@ -56,7 +55,7 @@ public final class TextTemplateResource {
         @Positive long textTemplateId,
         @NonNull TextTemplateRequest textTemplateRequest
     ) throws EasybillRestException {
-        return this.httpClient.doPutRequestAndMarshalJsonInto(
+        return this.httpClient.putJson(
                 RESOURCE_URL + "/" + textTemplateId,
                 textTemplateRequest,
                 new TypeReference<>() {}
@@ -65,6 +64,6 @@ public final class TextTemplateResource {
 
     public void deleteTextTemplate(@Positive long textTemplateId)
         throws EasybillRestException {
-        this.httpClient.doDeleteRequest(RESOURCE_URL + "/" + textTemplateId);
+        this.httpClient.delete(RESOURCE_URL + "/" + textTemplateId);
     }
 }

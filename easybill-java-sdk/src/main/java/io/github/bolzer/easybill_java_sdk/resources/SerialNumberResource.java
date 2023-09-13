@@ -25,7 +25,7 @@ public final class SerialNumberResource {
     public @NonNull PaginatedResponse<SerialNumber> fetchSerialNumbers(
         SerialNumberListQueryRequest serialNumberListQueryRequest
     ) throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
+        return this.httpClient.getJson(
                 RESOURCE_URL,
                 serialNumberListQueryRequest,
                 new TypeReference<>() {}
@@ -35,9 +35,8 @@ public final class SerialNumberResource {
     public @NonNull SerialNumber fetchSerialNumber(
         @Positive long serialNumberId
     ) throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
+        return this.httpClient.getJson(
                 RESOURCE_URL + "/" + serialNumberId,
-                null,
                 new TypeReference<>() {}
             );
     }
@@ -45,7 +44,7 @@ public final class SerialNumberResource {
     public @NonNull SerialNumber createSerialNumber(
         @NonNull SerialNumberRequest serialNumberRequest
     ) throws EasybillRestException {
-        return this.httpClient.doPostRequestAndMarshalJsonInto(
+        return this.httpClient.postJson(
                 RESOURCE_URL,
                 serialNumberRequest,
                 new TypeReference<>() {}
@@ -54,6 +53,6 @@ public final class SerialNumberResource {
 
     public void deleteSerialNumber(@Positive long serialNumberId)
         throws EasybillRestException {
-        this.httpClient.doDeleteRequest(RESOURCE_URL + "/" + serialNumberId);
+        this.httpClient.delete(RESOURCE_URL + "/" + serialNumberId);
     }
 }

@@ -25,7 +25,7 @@ public final class TimeTrackingResource {
     public @NonNull PaginatedResponse<TimeTracking> fetchTimeTrackings(
         TimeTrackingListQueryRequest timeTrackingListQueryRequest
     ) throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
+        return this.httpClient.getJson(
                 RESOURCE_URL,
                 timeTrackingListQueryRequest,
                 new TypeReference<>() {}
@@ -35,9 +35,8 @@ public final class TimeTrackingResource {
     public @NonNull TimeTracking fetchTimeTracking(
         @Positive long timeTrackingId
     ) throws EasybillRestException {
-        return this.httpClient.doGetRequestAndMarshalJsonInto(
+        return this.httpClient.getJson(
                 RESOURCE_URL + "/" + timeTrackingId,
-                null,
                 new TypeReference<>() {}
             );
     }
@@ -45,7 +44,7 @@ public final class TimeTrackingResource {
     public @NonNull TimeTracking createTimeTracking(
         @NonNull TimeTrackingRequest timeTrackingRequest
     ) throws EasybillRestException {
-        return this.httpClient.doPostRequestAndMarshalJsonInto(
+        return this.httpClient.postJson(
                 RESOURCE_URL,
                 timeTrackingRequest,
                 new TypeReference<>() {}
@@ -56,7 +55,7 @@ public final class TimeTrackingResource {
         @Positive long timeTrackingId,
         @NonNull TimeTrackingRequest timeTrackingRequest
     ) throws EasybillRestException {
-        return this.httpClient.doPutRequestAndMarshalJsonInto(
+        return this.httpClient.putJson(
                 RESOURCE_URL + "/" + timeTrackingId,
                 timeTrackingRequest,
                 new TypeReference<>() {}
@@ -65,6 +64,6 @@ public final class TimeTrackingResource {
 
     public void deleteTimeTracking(@Positive long timeTrackingId)
         throws EasybillRestException {
-        this.httpClient.doDeleteRequest(RESOURCE_URL + "/" + timeTrackingId);
+        this.httpClient.delete(RESOURCE_URL + "/" + timeTrackingId);
     }
 }
