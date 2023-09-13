@@ -57,7 +57,7 @@ public class EasybillRestClientTestcase {
                     if (
                         request.getBodySize() != 0 &&
                         Objects
-                            .requireNonNull(request.getHeader("Content-Type"))
+                            .requireNonNullElse(request.getHeader("Content-Type"), "")
                             .contains("application/json")
                     ) {
                         try {
@@ -84,14 +84,14 @@ public class EasybillRestClientTestcase {
                     if (
                         request.getBodySize() != 0 &&
                         Objects
-                            .requireNonNull(request.getHeader("Content-Type"))
+                            .requireNonNullElse(request.getHeader("Content-Type"), "")
                             .contains("multipart/form-data")
                     ) {
                         String rawRequestBody = request.getBody().readUtf8();
 
                         if (
                             rawRequestBody.contains(
-                                fixture.getPostBody().toString()
+                                Objects.requireNonNullElse(fixture.getPostBody(), new Object()).toString()
                             )
                         ) {
                             return fixture.getResponse();
