@@ -48,7 +48,7 @@ public final class HttpClientImpl implements HttpClient {
                 .build();
     }
 
-    public @NonNull ByteBuffer getBytes(@NonNull String endpoint)
+    public @NonNull ByteBuffer requestGetBytes(@NonNull String endpoint)
         throws EasybillRestException {
         try {
             try (
@@ -77,7 +77,7 @@ public final class HttpClientImpl implements HttpClient {
         }
     }
 
-    public @NonNull <T extends @Initialized @NonNull Object> T getJson(
+    public @NonNull <T extends @Initialized @NonNull Object> T requestGetJson(
         @NonNull String endpoint,
         @NonNull TypeReference<T> typeReference
     ) throws EasybillRestException {
@@ -101,7 +101,7 @@ public final class HttpClientImpl implements HttpClient {
         }
     }
 
-    public @NonNull <T extends @Initialized @NonNull Object> T getJson(
+    public @NonNull <T extends @Initialized @NonNull Object> T requestGetJson(
         @NonNull String endpoint,
         @Nullable QueryRequest queryRequest,
         @NonNull TypeReference<T> typeReference
@@ -127,7 +127,7 @@ public final class HttpClientImpl implements HttpClient {
     }
 
     @Override
-    public void postEmpty(@NonNull String endpoint)
+    public void requestPostEmpty(@NonNull String endpoint)
         throws EasybillRestException {
         try {
             try (
@@ -145,10 +145,10 @@ public final class HttpClientImpl implements HttpClient {
     }
 
     @Override
-    public <T extends @Initialized @NonNull Object> T postFile(
+    public <T extends @Initialized @NonNull Object> T requestPostFile(
         @NonNull String endpoint,
         @NonNull File file,
-        TypeReference<T> typeReference
+        @NonNull TypeReference<T> typeReference
     ) throws EasybillRestException {
         try {
             RequestBody requestBody = new MultipartBody.Builder()
@@ -180,10 +180,10 @@ public final class HttpClientImpl implements HttpClient {
     }
 
     @Override
-    public <T extends @Initialized @NonNull Object> T postJson(
+    public <T extends @Initialized @NonNull Object> T requestPostJson(
         @NonNull String endpoint,
         @NonNull Object payload,
-        TypeReference<T> typeReference
+        @NonNull TypeReference<T> typeReference
     ) throws EasybillRestException {
         try {
             final RequestBody requestBody = RequestBody.create(
@@ -211,11 +211,11 @@ public final class HttpClientImpl implements HttpClient {
     }
 
     @Override
-    public <T extends @Initialized @NonNull Object> T postJson(
+    public <T extends @Initialized @NonNull Object> T requestPostJson(
         @NonNull String endpoint,
         @NonNull QueryRequest queryRequest,
         @NonNull Object payload,
-        TypeReference<T> typeReference
+        @NonNull TypeReference<T> typeReference
     ) throws EasybillRestException {
         try {
             final RequestBody requestBody = RequestBody.create(
@@ -243,93 +243,96 @@ public final class HttpClientImpl implements HttpClient {
     }
 
     @Override
-    public void postJson(@NonNull String endpoint, @NonNull Object payload)
+    public void requestPostJson(
+        @NonNull String endpoint,
+        @NonNull Object payload
+    ) throws EasybillRestException {
+        try {
+            final RequestBody requestBody = RequestBody.create(
+                this.getPreparedObjectMapper().writeValueAsString(payload),
+                MediaType.parse("application/json; charset=utf-8")
+            );
+
+            try (
+                Response response = this.request(
+                        RequestMethod.POST,
+                        this.buildUrl(endpoint, null),
+                        requestBody
+                    )
+            ) {
+                this.inspectResponse(response);
+            }
+        } catch (IOException e) {
+            throw new EasybillRestException("request failed", e);
+        }
+    }
+
+    @Override
+    public <T extends @Initialized @NonNull Object> T requestPutJson(
+        @NonNull String endpoint,
+        @NonNull Object payload,
+        @NonNull TypeReference<T> typeReference
+    ) throws EasybillRestException {
+        try {
+            final RequestBody requestBody = RequestBody.create(
+                this.getPreparedObjectMapper().writeValueAsString(payload),
+                MediaType.parse("application/json; charset=utf-8")
+            );
+
+            try (
+                Response response = this.request(
+                        RequestMethod.PUT,
+                        this.buildUrl(endpoint, null),
+                        requestBody
+                    )
+            ) {
+                this.inspectResponse(response);
+
+                return this.readResponseBodyAndMarshalToType(
+                        response,
+                        typeReference
+                    );
+            }
+        } catch (IOException e) {
+            throw new EasybillRestException("request failed", e);
+        }
+    }
+
+    @Override
+    public <T extends @Initialized @NonNull Object> T requestPutJson(
+        @NonNull String endpoint,
+        @NonNull QueryRequest queryRequest,
+        @NonNull Object payload,
+        @NonNull TypeReference<T> typeReference
+    ) throws EasybillRestException {
+        try {
+            final RequestBody requestBody = RequestBody.create(
+                this.getPreparedObjectMapper().writeValueAsString(payload),
+                MediaType.parse("application/json; charset=utf-8")
+            );
+
+            try (
+                Response response = this.request(
+                        RequestMethod.PUT,
+                        this.buildUrl(endpoint, queryRequest),
+                        requestBody
+                    )
+            ) {
+                this.inspectResponse(response);
+
+                return this.readResponseBodyAndMarshalToType(
+                        response,
+                        typeReference
+                    );
+            }
+        } catch (IOException e) {
+            throw new EasybillRestException("request failed", e);
+        }
+    }
+
+    @Override
+    public void requestDelete(@NonNull String endpoint)
         throws EasybillRestException {
-        try {
-            final RequestBody requestBody = RequestBody.create(
-                this.getPreparedObjectMapper().writeValueAsString(payload),
-                MediaType.parse("application/json; charset=utf-8")
-            );
-
-            try (
-                Response response = this.request(
-                        RequestMethod.POST,
-                        this.buildUrl(endpoint, null),
-                        requestBody
-                    )
-            ) {
-                this.inspectResponse(response);
-            }
-        } catch (IOException e) {
-            throw new EasybillRestException("request failed", e);
-        }
-    }
-
-    @Override
-    public <T extends @Initialized @NonNull Object> T putJson(
-        @NonNull String endpoint,
-        @NonNull Object payload,
-        TypeReference<T> typeReference
-    ) throws EasybillRestException {
-        try {
-            final RequestBody requestBody = RequestBody.create(
-                this.getPreparedObjectMapper().writeValueAsString(payload),
-                MediaType.parse("application/json; charset=utf-8")
-            );
-
-            try (
-                Response response = this.request(
-                        RequestMethod.PUT,
-                        this.buildUrl(endpoint, null),
-                        requestBody
-                    )
-            ) {
-                this.inspectResponse(response);
-
-                return this.readResponseBodyAndMarshalToType(
-                        response,
-                        typeReference
-                    );
-            }
-        } catch (IOException e) {
-            throw new EasybillRestException("request failed", e);
-        }
-    }
-
-    @Override
-    public <T extends @Initialized @NonNull Object> T putJson(
-        @NonNull String endpoint,
-        @NonNull QueryRequest queryRequest,
-        @NonNull Object payload,
-        TypeReference<T> typeReference
-    ) throws EasybillRestException {
-        try {
-            final RequestBody requestBody = RequestBody.create(
-                this.getPreparedObjectMapper().writeValueAsString(payload),
-                MediaType.parse("application/json; charset=utf-8")
-            );
-
-            try (
-                Response response = this.request(
-                        RequestMethod.PUT,
-                        this.buildUrl(endpoint, queryRequest),
-                        requestBody
-                    )
-            ) {
-                this.inspectResponse(response);
-
-                return this.readResponseBodyAndMarshalToType(
-                        response,
-                        typeReference
-                    );
-            }
-        } catch (IOException e) {
-            throw new EasybillRestException("request failed", e);
-        }
-    }
-
-    @Override
-    public void delete(@NonNull String endpoint) throws EasybillRestException {
         try {
             try (
                 Response response = this.request(

@@ -1,7 +1,6 @@
 package io.github.bolzer.easybill_java_sdk.resources;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.github.bolzer.easybill_java_sdk.contracts.HttpClient;
 import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
 import io.github.bolzer.easybill_java_sdk.models.Project;
@@ -17,7 +16,6 @@ public final class ProjectResource {
     public static final String RESOURCE_URL = "/projects";
 
     @NonNull
-    @SuppressFBWarnings
     private final HttpClient httpClient;
 
     public ProjectResource(@NonNull HttpClient httpClient) {
@@ -27,7 +25,7 @@ public final class ProjectResource {
     public @NonNull PaginatedResponse<Project> fetchProjects(
         ProjectListQueryRequest projectListQueryRequest
     ) throws EasybillRestException {
-        return this.httpClient.getJson(
+        return this.httpClient.requestGetJson(
                 RESOURCE_URL,
                 projectListQueryRequest,
                 new TypeReference<>() {}
@@ -36,7 +34,7 @@ public final class ProjectResource {
 
     public @NonNull Project fetchProject(@Positive long projectId)
         throws EasybillRestException {
-        return this.httpClient.getJson(
+        return this.httpClient.requestGetJson(
                 RESOURCE_URL + "/" + projectId,
                 new TypeReference<>() {}
             );
@@ -45,7 +43,7 @@ public final class ProjectResource {
     public @NonNull Project createProject(
         @NonNull ProjectRequest projectRequest
     ) throws EasybillRestException {
-        return this.httpClient.postJson(
+        return this.httpClient.requestPostJson(
                 RESOURCE_URL,
                 projectRequest,
                 new TypeReference<>() {}
@@ -56,7 +54,7 @@ public final class ProjectResource {
         @Positive long projectId,
         @NonNull ProjectRequest projectRequest
     ) throws EasybillRestException {
-        return this.httpClient.putJson(
+        return this.httpClient.requestPutJson(
                 RESOURCE_URL + "/" + projectId,
                 projectRequest,
                 new TypeReference<>() {}
@@ -65,6 +63,6 @@ public final class ProjectResource {
 
     public void deleteProject(@Positive long projectId)
         throws EasybillRestException {
-        this.httpClient.delete(RESOURCE_URL + "/" + projectId);
+        this.httpClient.requestDelete(RESOURCE_URL + "/" + projectId);
     }
 }

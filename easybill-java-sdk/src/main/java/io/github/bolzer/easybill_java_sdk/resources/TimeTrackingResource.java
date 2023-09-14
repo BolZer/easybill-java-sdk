@@ -1,7 +1,6 @@
 package io.github.bolzer.easybill_java_sdk.resources;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.github.bolzer.easybill_java_sdk.contracts.HttpClient;
 import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
 import io.github.bolzer.easybill_java_sdk.models.TimeTracking;
@@ -17,7 +16,6 @@ public final class TimeTrackingResource {
     public static final String RESOURCE_URL = "/time-trackings";
 
     @NonNull
-    @SuppressFBWarnings
     private final HttpClient httpClient;
 
     public TimeTrackingResource(@NonNull HttpClient httpClient) {
@@ -27,7 +25,7 @@ public final class TimeTrackingResource {
     public @NonNull PaginatedResponse<TimeTracking> fetchTimeTrackings(
         TimeTrackingListQueryRequest timeTrackingListQueryRequest
     ) throws EasybillRestException {
-        return this.httpClient.getJson(
+        return this.httpClient.requestGetJson(
                 RESOURCE_URL,
                 timeTrackingListQueryRequest,
                 new TypeReference<>() {}
@@ -37,7 +35,7 @@ public final class TimeTrackingResource {
     public @NonNull TimeTracking fetchTimeTracking(
         @Positive long timeTrackingId
     ) throws EasybillRestException {
-        return this.httpClient.getJson(
+        return this.httpClient.requestGetJson(
                 RESOURCE_URL + "/" + timeTrackingId,
                 new TypeReference<>() {}
             );
@@ -46,7 +44,7 @@ public final class TimeTrackingResource {
     public @NonNull TimeTracking createTimeTracking(
         @NonNull TimeTrackingRequest timeTrackingRequest
     ) throws EasybillRestException {
-        return this.httpClient.postJson(
+        return this.httpClient.requestPostJson(
                 RESOURCE_URL,
                 timeTrackingRequest,
                 new TypeReference<>() {}
@@ -57,7 +55,7 @@ public final class TimeTrackingResource {
         @Positive long timeTrackingId,
         @NonNull TimeTrackingRequest timeTrackingRequest
     ) throws EasybillRestException {
-        return this.httpClient.putJson(
+        return this.httpClient.requestPutJson(
                 RESOURCE_URL + "/" + timeTrackingId,
                 timeTrackingRequest,
                 new TypeReference<>() {}
@@ -66,6 +64,6 @@ public final class TimeTrackingResource {
 
     public void deleteTimeTracking(@Positive long timeTrackingId)
         throws EasybillRestException {
-        this.httpClient.delete(RESOURCE_URL + "/" + timeTrackingId);
+        this.httpClient.requestDelete(RESOURCE_URL + "/" + timeTrackingId);
     }
 }

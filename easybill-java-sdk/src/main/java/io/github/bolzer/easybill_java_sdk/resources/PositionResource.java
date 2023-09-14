@@ -1,7 +1,6 @@
 package io.github.bolzer.easybill_java_sdk.resources;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.github.bolzer.easybill_java_sdk.contracts.HttpClient;
 import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
 import io.github.bolzer.easybill_java_sdk.models.Position;
@@ -17,7 +16,6 @@ public final class PositionResource {
     public static final String RESOURCE_URL = "/positions";
 
     @NonNull
-    @SuppressFBWarnings
     private final HttpClient httpClient;
 
     public PositionResource(@NonNull HttpClient httpClient) {
@@ -27,7 +25,7 @@ public final class PositionResource {
     public @NonNull PaginatedResponse<Position> fetchPositions(
         PositionListQueryRequest positionListQueryRequest
     ) throws EasybillRestException {
-        return this.httpClient.getJson(
+        return this.httpClient.requestGetJson(
                 RESOURCE_URL,
                 positionListQueryRequest,
                 new TypeReference<>() {}
@@ -36,7 +34,7 @@ public final class PositionResource {
 
     public @NonNull Position fetchPosition(@Positive long positionId)
         throws EasybillRestException {
-        return this.httpClient.getJson(
+        return this.httpClient.requestGetJson(
                 RESOURCE_URL + "/" + positionId,
                 new TypeReference<>() {}
             );
@@ -45,7 +43,7 @@ public final class PositionResource {
     public @NonNull Position createPosition(
         @NonNull PositionRequest positionRequest
     ) throws EasybillRestException {
-        return this.httpClient.postJson(
+        return this.httpClient.requestPostJson(
                 RESOURCE_URL,
                 positionRequest,
                 new TypeReference<>() {}
@@ -56,7 +54,7 @@ public final class PositionResource {
         @Positive long positionId,
         @NonNull PositionRequest positionRequest
     ) throws EasybillRestException {
-        return this.httpClient.putJson(
+        return this.httpClient.requestPutJson(
                 RESOURCE_URL + "/" + positionId,
                 positionRequest,
                 new TypeReference<>() {}
@@ -65,6 +63,6 @@ public final class PositionResource {
 
     public void deletePosition(@Positive long positionId)
         throws EasybillRestException {
-        this.httpClient.delete(RESOURCE_URL + "/" + positionId);
+        this.httpClient.requestDelete(RESOURCE_URL + "/" + positionId);
     }
 }

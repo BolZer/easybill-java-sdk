@@ -1,7 +1,6 @@
 package io.github.bolzer.easybill_java_sdk.resources;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.github.bolzer.easybill_java_sdk.contracts.HttpClient;
 import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
 import io.github.bolzer.easybill_java_sdk.models.CustomerGroup;
@@ -17,7 +16,6 @@ public final class CustomerGroupResource {
     public static final String RESOURCE_URL = "/customer-groups";
 
     @NonNull
-    @SuppressFBWarnings
     private final HttpClient httpClient;
 
     public CustomerGroupResource(@NonNull HttpClient httpClient) {
@@ -27,7 +25,7 @@ public final class CustomerGroupResource {
     public @NonNull PaginatedResponse<CustomerGroup> fetchCustomerGroups(
         GenericListQueryRequest genericListQueryRequest
     ) throws EasybillRestException {
-        return this.httpClient.getJson(
+        return this.httpClient.requestGetJson(
                 RESOURCE_URL,
                 genericListQueryRequest,
                 new TypeReference<>() {}
@@ -37,7 +35,7 @@ public final class CustomerGroupResource {
     public @NonNull CustomerGroup fetchCustomerGroup(
         @Positive long customerGroupId
     ) throws EasybillRestException {
-        return this.httpClient.getJson(
+        return this.httpClient.requestGetJson(
                 RESOURCE_URL + "/" + customerGroupId,
                 new TypeReference<>() {}
             );
@@ -46,7 +44,7 @@ public final class CustomerGroupResource {
     public @NonNull CustomerGroup createCustomerGroup(
         @NonNull CustomerGroupRequest customerGroupRequest
     ) throws EasybillRestException {
-        return this.httpClient.postJson(
+        return this.httpClient.requestPostJson(
                 RESOURCE_URL,
                 customerGroupRequest,
                 new TypeReference<>() {}
@@ -57,7 +55,7 @@ public final class CustomerGroupResource {
         @Positive long customerId,
         @NonNull CustomerGroupRequest customerGroupRequest
     ) throws EasybillRestException {
-        return this.httpClient.putJson(
+        return this.httpClient.requestPutJson(
                 RESOURCE_URL + "/" + customerId,
                 customerGroupRequest,
                 new TypeReference<>() {}
@@ -66,6 +64,6 @@ public final class CustomerGroupResource {
 
     public void deleteCustomerGroup(@Positive long customerGroupId)
         throws EasybillRestException {
-        this.httpClient.delete(RESOURCE_URL + "/" + customerGroupId);
+        this.httpClient.requestDelete(RESOURCE_URL + "/" + customerGroupId);
     }
 }

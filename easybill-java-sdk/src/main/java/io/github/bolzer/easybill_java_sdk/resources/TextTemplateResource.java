@@ -1,7 +1,6 @@
 package io.github.bolzer.easybill_java_sdk.resources;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.github.bolzer.easybill_java_sdk.contracts.HttpClient;
 import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
 import io.github.bolzer.easybill_java_sdk.models.TextTemplate;
@@ -17,7 +16,6 @@ public final class TextTemplateResource {
     public static final String RESOURCE_URL = "/text-templates";
 
     @NonNull
-    @SuppressFBWarnings
     private final HttpClient httpClient;
 
     public TextTemplateResource(@NonNull HttpClient httpClient) {
@@ -27,7 +25,7 @@ public final class TextTemplateResource {
     public @NonNull PaginatedResponse<TextTemplate> fetchTextTemplates(
         GenericListQueryRequest genericListQueryRequest
     ) throws EasybillRestException {
-        return this.httpClient.getJson(
+        return this.httpClient.requestGetJson(
                 RESOURCE_URL,
                 genericListQueryRequest,
                 new TypeReference<>() {}
@@ -37,7 +35,7 @@ public final class TextTemplateResource {
     public @NonNull TextTemplate fetchTextTemplate(
         @Positive long textTemplateId
     ) throws EasybillRestException {
-        return this.httpClient.getJson(
+        return this.httpClient.requestGetJson(
                 RESOURCE_URL + "/" + textTemplateId,
                 new TypeReference<>() {}
             );
@@ -46,7 +44,7 @@ public final class TextTemplateResource {
     public @NonNull TextTemplate createTextTemplate(
         @NonNull TextTemplateRequest textTemplateRequest
     ) throws EasybillRestException {
-        return this.httpClient.postJson(
+        return this.httpClient.requestPostJson(
                 RESOURCE_URL,
                 textTemplateRequest,
                 new TypeReference<>() {}
@@ -57,7 +55,7 @@ public final class TextTemplateResource {
         @Positive long textTemplateId,
         @NonNull TextTemplateRequest textTemplateRequest
     ) throws EasybillRestException {
-        return this.httpClient.putJson(
+        return this.httpClient.requestPutJson(
                 RESOURCE_URL + "/" + textTemplateId,
                 textTemplateRequest,
                 new TypeReference<>() {}
@@ -66,6 +64,6 @@ public final class TextTemplateResource {
 
     public void deleteTextTemplate(@Positive long textTemplateId)
         throws EasybillRestException {
-        this.httpClient.delete(RESOURCE_URL + "/" + textTemplateId);
+        this.httpClient.requestDelete(RESOURCE_URL + "/" + textTemplateId);
     }
 }
