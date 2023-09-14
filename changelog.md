@@ -1,6 +1,6 @@
 ## Changelog
 
-**2023-09-13 - Version 0.3.0**
+**2023-09-13 - Version 0.4.0**
 - Finalize Attachment Resource
 - Add missing copy method in Document Resource
 - Cleanup HttpClientImpl
