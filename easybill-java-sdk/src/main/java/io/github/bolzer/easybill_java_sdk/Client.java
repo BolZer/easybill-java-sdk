@@ -5,15 +5,25 @@ import io.github.bolzer.easybill_java_sdk.contracts.HttpClient;
 import io.github.bolzer.easybill_java_sdk.resources.*;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
+/** The REST API Client of the SDK. Exposes the different REST API resources as high levels methods. */
 public final class Client {
 
+    /** User-Agent to be used for the HTTP-Header User-Agent. This agent is not customizable.*/
     @NonNull
-    public static final String USER_AGENT = "easybill-JAVA-REST-SDK-0.3.0";
+    public static final String USER_AGENT = "easybill-JAVA-REST-SDK-0.4.0";
 
+    /**
+     * The base url for the easybill REST API. It's intentional left non-final as this URL is overwritten
+     * for testing purpose
+     */
     @NonNull
     @SuppressFBWarnings
     public static String BASE_URL = "https://api.easybill.de/rest/v1";
 
+    /**
+     * The actual http client. Abstracted by the Interface-Contract in the SDK. The SDK actually uses
+     * OKHttpClient.
+     */
     @NonNull
     private final HttpClient httpClient;
 

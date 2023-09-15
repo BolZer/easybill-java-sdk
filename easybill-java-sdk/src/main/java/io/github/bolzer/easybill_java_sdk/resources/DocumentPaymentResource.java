@@ -1,7 +1,6 @@
 package io.github.bolzer.easybill_java_sdk.resources;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.github.bolzer.easybill_java_sdk.contracts.HttpClient;
 import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
 import io.github.bolzer.easybill_java_sdk.models.DocumentPayment;
@@ -17,7 +16,6 @@ public final class DocumentPaymentResource {
     public static final String RESOURCE_URL = "/document-payments";
 
     @NonNull
-    @SuppressFBWarnings
     private final HttpClient httpClient;
 
     public DocumentPaymentResource(@NonNull HttpClient httpClient) {
@@ -27,7 +25,7 @@ public final class DocumentPaymentResource {
     public @NonNull PaginatedResponse<DocumentPayment> fetchDocumentPayments(
         DocumentPaymentListQueryRequest documentPaymentListQueryRequest
     ) throws EasybillRestException {
-        return this.httpClient.getJson(
+        return this.httpClient.requestGetJson(
                 RESOURCE_URL,
                 documentPaymentListQueryRequest,
                 new TypeReference<>() {}
@@ -37,7 +35,7 @@ public final class DocumentPaymentResource {
     public @NonNull DocumentPayment fetchDocumentPayment(
         @Positive long documentPaymentId
     ) throws EasybillRestException {
-        return this.httpClient.getJson(
+        return this.httpClient.requestGetJson(
                 RESOURCE_URL + "/" + documentPaymentId,
                 new TypeReference<>() {}
             );
@@ -46,7 +44,7 @@ public final class DocumentPaymentResource {
     public @NonNull DocumentPayment createDocumentPayment(
         @NonNull DocumentPaymentRequest documentPaymentRequest
     ) throws EasybillRestException {
-        return this.httpClient.postJson(
+        return this.httpClient.requestPostJson(
                 RESOURCE_URL,
                 documentPaymentRequest,
                 new TypeReference<>() {}
@@ -55,6 +53,6 @@ public final class DocumentPaymentResource {
 
     public void deleteDocumentPayment(@Positive long documentPaymentId)
         throws EasybillRestException {
-        this.httpClient.delete(RESOURCE_URL + "/" + documentPaymentId);
+        this.httpClient.requestDelete(RESOURCE_URL + "/" + documentPaymentId);
     }
 }

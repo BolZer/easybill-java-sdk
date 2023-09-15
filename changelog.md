@@ -1,5 +1,10 @@
 ## Changelog
 
+**2023-09-15 - Version 0.4.0**
+- Add documentation to document resource
+- Remove FBWarning Annotations
+- Change Naming of methods in HttpClient contract to avoid FBWarnings
+
 **2023-09-13 - Version 0.3.0**
 - Finalize Attachment Resource
 - Add missing copy method in Document Resource

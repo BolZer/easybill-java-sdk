@@ -1,7 +1,6 @@
 package io.github.bolzer.easybill_java_sdk.resources;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.github.bolzer.easybill_java_sdk.contracts.HttpClient;
 import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
 import io.github.bolzer.easybill_java_sdk.models.Attachment;
@@ -19,7 +18,6 @@ public final class AttachmentResource {
     public static final String RESOURCE_URL = "/attachments";
 
     @NonNull
-    @SuppressFBWarnings
     private final HttpClient httpClient;
 
     public AttachmentResource(@NonNull HttpClient httpClient) {
@@ -29,7 +27,7 @@ public final class AttachmentResource {
     public @NonNull PaginatedResponse<Attachment> fetchAttachments(
         GenericListQueryRequest genericListQueryRequest
     ) throws EasybillRestException {
-        return this.httpClient.getJson(
+        return this.httpClient.requestGetJson(
                 RESOURCE_URL,
                 genericListQueryRequest,
                 new TypeReference<>() {}
@@ -38,7 +36,7 @@ public final class AttachmentResource {
 
     public @NonNull Attachment fetchAttachment(long attachmentId)
         throws EasybillRestException {
-        return this.httpClient.getJson(
+        return this.httpClient.requestGetJson(
                 RESOURCE_URL + "/" + attachmentId,
                 new TypeReference<>() {}
             );
@@ -46,7 +44,7 @@ public final class AttachmentResource {
 
     public @NonNull Attachment createAttachment(File file)
         throws EasybillRestException {
-        return this.httpClient.postFile(
+        return this.httpClient.requestPostFile(
                 RESOURCE_URL,
                 file,
                 new TypeReference<>() {}
@@ -57,7 +55,7 @@ public final class AttachmentResource {
         @Positive long attachmentId,
         @NonNull AttachmentRequest attachmentRequest
     ) throws EasybillRestException {
-        return this.httpClient.putJson(
+        return this.httpClient.requestPutJson(
                 RESOURCE_URL + "/" + attachmentId,
                 attachmentRequest,
                 new TypeReference<>() {}
@@ -66,13 +64,13 @@ public final class AttachmentResource {
 
     public @NonNull ByteBuffer fetchAttachmentContent(long attachmentId)
         throws EasybillRestException {
-        return this.httpClient.getBytes(
+        return this.httpClient.requestGetBytes(
                 RESOURCE_URL + "/" + attachmentId + "/content"
             );
     }
 
     public void deleteAttachment(@Positive long attachmentId)
         throws EasybillRestException {
-        this.httpClient.delete(RESOURCE_URL + "/" + attachmentId);
+        this.httpClient.requestDelete(RESOURCE_URL + "/" + attachmentId);
     }
 }

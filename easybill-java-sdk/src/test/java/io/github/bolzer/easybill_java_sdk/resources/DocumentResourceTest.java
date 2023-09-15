@@ -14,10 +14,14 @@ import io.github.bolzer.easybill_java_sdk.requests.DocumentListQueryRequest;
 import io.github.bolzer.easybill_java_sdk.requests.DocumentRequest;
 import io.github.bolzer.easybill_java_sdk.requests.DocumentSendRequest;
 import io.github.bolzer.easybill_java_sdk.responses.PaginatedResponse;
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 public final class DocumentResourceTest extends EasybillRestClientTestcase {
 
@@ -212,7 +216,8 @@ public final class DocumentResourceTest extends EasybillRestClientTestcase {
     }
 
     @Test
-    public void testDownloadAsPdf() throws EasybillRestException {
+    public void testDownloadAsPdf(@TempDir Path tempDir)
+        throws EasybillRestException, IOException {
         Client client = bootstrapMockWebServerAndReturnClient(
             List.of(new DocumentDownloadPdfFixture())
         );
@@ -221,7 +226,10 @@ public final class DocumentResourceTest extends EasybillRestClientTestcase {
             .getDocumentsResource()
             .downloadDocumentAsPdf(2558029173L);
 
-        assertThat(result.array())
+        Path tempFile = Files.createFile(tempDir.resolve("document.pdf"));
+        Files.write(tempFile, result.array());
+
+        assertThat(Files.readAllBytes(tempFile))
             .isEqualTo("Pdf".getBytes(StandardCharsets.UTF_8));
     }
 }

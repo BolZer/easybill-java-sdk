@@ -1,7 +1,6 @@
 package io.github.bolzer.easybill_java_sdk.resources;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.github.bolzer.easybill_java_sdk.contracts.HttpClient;
 import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
 import io.github.bolzer.easybill_java_sdk.models.SepaPayment;
@@ -17,7 +16,6 @@ public final class SepaPaymentResource {
     public static final String RESOURCE_URL = "/sepa-payments";
 
     @NonNull
-    @SuppressFBWarnings
     private final HttpClient httpClient;
 
     public SepaPaymentResource(@NonNull HttpClient httpClient) {
@@ -27,7 +25,7 @@ public final class SepaPaymentResource {
     public @NonNull PaginatedResponse<SepaPayment> fetchSepaPayments(
         SepaPaymentListQueryRequest sepaPaymentListQueryRequest
     ) throws EasybillRestException {
-        return this.httpClient.getJson(
+        return this.httpClient.requestGetJson(
                 RESOURCE_URL,
                 sepaPaymentListQueryRequest,
                 new TypeReference<>() {}
@@ -36,7 +34,7 @@ public final class SepaPaymentResource {
 
     public @NonNull SepaPayment fetchSepaPayment(@Positive long sepaPaymentId)
         throws EasybillRestException {
-        return this.httpClient.getJson(
+        return this.httpClient.requestGetJson(
                 RESOURCE_URL + "/" + sepaPaymentId,
                 new TypeReference<>() {}
             );
@@ -45,7 +43,7 @@ public final class SepaPaymentResource {
     public @NonNull SepaPayment createSepaPayment(
         @NonNull SepaPaymentRequest sepaPaymentRequest
     ) throws EasybillRestException {
-        return this.httpClient.postJson(
+        return this.httpClient.requestPostJson(
                 RESOURCE_URL,
                 sepaPaymentRequest,
                 new TypeReference<>() {}
@@ -56,7 +54,7 @@ public final class SepaPaymentResource {
         @Positive long sepaPaymentId,
         @NonNull SepaPaymentRequest sepaPaymentRequest
     ) throws EasybillRestException {
-        return this.httpClient.putJson(
+        return this.httpClient.requestPutJson(
                 RESOURCE_URL + "/" + sepaPaymentId,
                 sepaPaymentRequest,
                 new TypeReference<>() {}
@@ -65,6 +63,6 @@ public final class SepaPaymentResource {
 
     public void deleteSepaPayment(@Positive long sepaPaymentId)
         throws EasybillRestException {
-        this.httpClient.delete(RESOURCE_URL + "/" + sepaPaymentId);
+        this.httpClient.requestDelete(RESOURCE_URL + "/" + sepaPaymentId);
     }
 }

@@ -9,57 +9,59 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 
 public interface HttpClient {
     @NonNull
-    ByteBuffer getBytes(@NonNull String endpoint) throws EasybillRestException;
+    ByteBuffer requestGetBytes(@NonNull String endpoint)
+        throws EasybillRestException;
 
     @NonNull
-    <T extends @Initialized @NonNull Object> T getJson(
+    <T extends @Initialized @NonNull Object> T requestGetJson(
         @NonNull String endpoint,
         @NonNull TypeReference<T> typeReference
     ) throws EasybillRestException;
 
     @NonNull
-    <T extends @Initialized @NonNull Object> T getJson(
+    <T extends @Initialized @NonNull Object> T requestGetJson(
         @NonNull String endpoint,
         @NonNull QueryRequest queryRequest,
         @NonNull TypeReference<T> typeReference
     ) throws EasybillRestException;
 
-    void postEmpty(@NonNull String endpoint) throws EasybillRestException;
+    void requestPostEmpty(@NonNull String endpoint)
+        throws EasybillRestException;
 
-    <T extends @Initialized @NonNull Object> T postFile(
+    <T extends @Initialized @NonNull Object> T requestPostFile(
         @NonNull String endpoint,
         @NonNull File file,
         TypeReference<T> typeReference
     ) throws EasybillRestException;
 
-    <T extends @Initialized @NonNull Object> T postJson(
+    <T extends @Initialized @NonNull Object> T requestPostJson(
         @NonNull String endpoint,
         @NonNull Object payload,
-        TypeReference<T> typeReference
+        @NonNull TypeReference<T> typeReference
     ) throws EasybillRestException;
 
-    <T extends @Initialized @NonNull Object> T postJson(
+    <T extends @Initialized @NonNull Object> T requestPostJson(
         @NonNull String endpoint,
         @NonNull QueryRequest queryRequest,
         @NonNull Object payload,
-        TypeReference<T> typeReference
+        @NonNull TypeReference<T> typeReference
     ) throws EasybillRestException;
 
-    void postJson(@NonNull String endpoint, @NonNull Object payload)
+    void requestPostJson(@NonNull String endpoint, @NonNull Object payload)
         throws EasybillRestException;
 
-    <T extends @Initialized @NonNull Object> T putJson(
+    <T extends @Initialized @NonNull Object> T requestPutJson(
         @NonNull String endpoint,
         @NonNull Object payload,
-        TypeReference<T> typeReference
+        @NonNull TypeReference<T> typeReference
     ) throws EasybillRestException;
 
-    <T extends @Initialized @NonNull Object> T putJson(
+    <T extends @Initialized @NonNull Object> T requestPutJson(
         @NonNull String endpoint,
         @NonNull QueryRequest queryRequest,
         @NonNull Object payload,
-        TypeReference<T> typeReference
+        @NonNull TypeReference<T> typeReference
     ) throws EasybillRestException;
 
-    void delete(@NonNull String endpoint) throws EasybillRestException;
+    void requestDelete(@NonNull String endpoint) throws EasybillRestException;
 }
