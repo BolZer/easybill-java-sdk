@@ -25,7 +25,7 @@ import org.checkerframework.checker.initialization.qual.Initialized;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
-public final class HttpClientImpl implements HttpClient {
+final class HttpClientImpl implements HttpClient {
 
     private enum RequestMethod {
         GET,
