@@ -11,6 +11,7 @@ import java.util.stream.Stream;
 import kotlin.Triple;
 import okhttp3.HttpUrl;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.junit.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -57,4 +58,7 @@ public final class HttpClientImplTest {
 
         assertEquals(value.getThird(), result.toString());
     }
+
+    @Test
+    public void testHttpClientConfig(){}
 }

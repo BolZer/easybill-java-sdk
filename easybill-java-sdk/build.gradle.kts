@@ -1,6 +1,6 @@
 import java.net.URI
 
-version = "0.4.0"
+version = "0.5.0"
 
 java {
     withJavadocJar()
@@ -51,7 +51,7 @@ publishing {
         create<MavenPublication>("maven") {
             groupId = "io.github.bolzer"
             artifactId = "easybill-java-sdk"
-            version = "0.4.0"
+            version = "0.5.0"
 
             from(components["java"])
 

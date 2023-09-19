@@ -48,6 +48,20 @@ final class HttpClientImpl implements HttpClient {
                 .build();
     }
 
+    public HttpClientImpl(
+        @NonNull String apiToken,
+        @NonNull Client.Config config
+    ) {
+        this.okHttpClient =
+            new OkHttpClient.Builder()
+                .followRedirects(false)
+                .addInterceptor(new UserAgentInterceptor(Client.USER_AGENT))
+                .addInterceptor(new BearerAuthorizationInterceptor(apiToken))
+                .callTimeout(config.getCallTimeout())
+                .connectTimeout(config.getConnectTimeout())
+                .build();
+    }
+
     public @NonNull ByteBuffer requestGetBytes(@NonNull String endpoint)
         throws EasybillRestException {
         try {
