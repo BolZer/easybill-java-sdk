@@ -9,7 +9,7 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 /** The REST API Client of the SDK. Exposes the different REST API resources as high levels methods. */
 public final class Client {
 
-    public final class Config {
+    public static final class Config {
 
         @NonNull
         private final Duration callTimeout;
@@ -25,11 +25,11 @@ public final class Client {
             this.connectTimeout = connectTimeout;
         }
 
-        public Duration getCallTimeout() {
+        public @NonNull Duration getCallTimeout() {
             return callTimeout;
         }
 
-        public Duration getConnectTimeout() {
+        public @NonNull Duration getConnectTimeout() {
             return connectTimeout;
         }
     }
