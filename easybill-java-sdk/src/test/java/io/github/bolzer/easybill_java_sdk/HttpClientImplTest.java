@@ -1,5 +1,6 @@
 package io.github.bolzer.easybill_java_sdk;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import io.github.bolzer.easybill_java_sdk.contracts.QueryRequest;
@@ -91,7 +92,7 @@ public final class HttpClientImplTest {
 
         LoggingInterceptorBuilder interceptorBuilder =
             (new LoggingInterceptorBuilder()).setLoggingFunction(log::add)
-                .setLoggingLevel(HttpLoggingInterceptor.Level.BASIC)
+                .setLoggingLevel(HttpLoggingInterceptor.Level.HEADERS)
                 .setRedactHeaders(List.of("Authorization"));
 
         HttpClientImpl client = new HttpClientImpl(
@@ -104,5 +105,7 @@ public final class HttpClientImplTest {
         );
 
         client.requestDelete("/test");
+        assertThat(log).contains("User-Agent: easybill-JAVA-REST-SDK-0.5.0");
+        assertThat(log).contains("Authorization: ██");
     }
 }
