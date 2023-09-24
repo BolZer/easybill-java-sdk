@@ -60,5 +60,5 @@ public final class HttpClientImplTest {
     }
 
     @Test
-    public void testHttpClientConfig(){}
+    public void testHttpClientConfig() {}
 }

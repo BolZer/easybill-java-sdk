@@ -6,7 +6,7 @@ import io.github.bolzer.easybill_java_sdk.resources.*;
 import java.time.Duration;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
-/** The REST API Client of the SDK. Exposes the different REST API resources as high levels methods. */
+/** The REST API Client of the SDK. Exposes the different REST API resources as high level methods. */
 public final class Client {
 
     public static final class Config {

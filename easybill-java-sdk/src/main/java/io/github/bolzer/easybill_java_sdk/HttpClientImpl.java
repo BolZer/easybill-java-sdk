@@ -50,7 +50,7 @@ final class HttpClientImpl implements HttpClient {
 
     public HttpClientImpl(
         @NonNull String apiToken,
-        @NonNull Client.Config config
+        Client.@NonNull Config config
     ) {
         this.okHttpClient =
             new OkHttpClient.Builder()
