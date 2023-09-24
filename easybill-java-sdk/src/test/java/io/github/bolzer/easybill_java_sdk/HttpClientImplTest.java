@@ -3,15 +3,25 @@ package io.github.bolzer.easybill_java_sdk;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import io.github.bolzer.easybill_java_sdk.contracts.QueryRequest;
+import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
+import io.github.bolzer.easybill_java_sdk.interceptors.LoggingInterceptorBuilder;
 import io.github.bolzer.easybill_java_sdk.requests.DocumentListQueryRequest;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 import kotlin.Triple;
 import okhttp3.HttpUrl;
+import okhttp3.logging.HttpLoggingInterceptor;
+import okhttp3.mockwebserver.Dispatcher;
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
+import okhttp3.mockwebserver.RecordedRequest;
 import org.checkerframework.checker.nullness.qual.NonNull;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -60,5 +70,39 @@ public final class HttpClientImplTest {
     }
 
     @Test
-    public void testHttpClientConfig() {}
+    public void testHttpClientConfig()
+        throws EasybillRestException, IOException {
+        final List<@NonNull String> log = new ArrayList<>();
+
+        final okhttp3.mockwebserver.Dispatcher dispatcher = new Dispatcher() {
+            @Override
+            public @NonNull MockResponse dispatch(
+                @NonNull RecordedRequest request
+            ) {
+                return new MockResponse().setResponseCode(200);
+            }
+        };
+
+        MockWebServer server = new MockWebServer();
+        server.setDispatcher(dispatcher);
+        server.start();
+
+        Client.BASE_URL = server.url("/rest/v1").toString();
+
+        LoggingInterceptorBuilder interceptorBuilder =
+            (new LoggingInterceptorBuilder()).setLoggingFunction(log::add)
+                .setLoggingLevel(HttpLoggingInterceptor.Level.BASIC)
+                .setRedactHeaders(List.of("Authorization"));
+
+        HttpClientImpl client = new HttpClientImpl(
+            "TEST_TOKEN",
+            new Client.Config(
+                Duration.ofSeconds(30),
+                Duration.ofSeconds(30),
+                interceptorBuilder
+            )
+        );
+
+        client.requestDelete("/test");
+    }
 }

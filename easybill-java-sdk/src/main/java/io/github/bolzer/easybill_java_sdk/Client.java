@@ -2,9 +2,11 @@ package io.github.bolzer.easybill_java_sdk;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.github.bolzer.easybill_java_sdk.contracts.HttpClient;
+import io.github.bolzer.easybill_java_sdk.interceptors.LoggingInterceptorBuilder;
 import io.github.bolzer.easybill_java_sdk.resources.*;
 import java.time.Duration;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /** The REST API Client of the SDK. Exposes the different REST API resources as high level methods. */
 public final class Client {
@@ -17,12 +19,17 @@ public final class Client {
         @NonNull
         private final Duration connectTimeout;
 
+        @Nullable
+        private final LoggingInterceptorBuilder loggingInterceptorBuilder;
+
         public Config(
             @NonNull Duration callTimeout,
-            @NonNull Duration connectTimeout
+            @NonNull Duration connectTimeout,
+            @Nullable LoggingInterceptorBuilder loggingInterceptorBuilder
         ) {
             this.callTimeout = callTimeout;
             this.connectTimeout = connectTimeout;
+            this.loggingInterceptorBuilder = loggingInterceptorBuilder;
         }
 
         public @NonNull Duration getCallTimeout() {
@@ -31,6 +38,10 @@ public final class Client {
 
         public @NonNull Duration getConnectTimeout() {
             return connectTimeout;
+        }
+
+        public @Nullable LoggingInterceptorBuilder getLoggingInterceptorBuilder() {
+            return loggingInterceptorBuilder;
         }
     }
 
