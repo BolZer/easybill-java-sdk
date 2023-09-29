@@ -3,6 +3,7 @@ package io.github.bolzer.easybill_java_sdk;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.github.bolzer.easybill_java_sdk.contracts.QueryRequest;
 import io.github.bolzer.easybill_java_sdk.exceptions.EasybillRestException;
 import io.github.bolzer.easybill_java_sdk.interceptors.LoggingInterceptorBuilder;
@@ -71,6 +72,7 @@ public final class HttpClientImplTest {
     }
 
     @Test
+    @SuppressFBWarnings
     public void testHttpClientConfig()
         throws EasybillRestException, IOException {
         final List<@NonNull String> log = new ArrayList<>();
