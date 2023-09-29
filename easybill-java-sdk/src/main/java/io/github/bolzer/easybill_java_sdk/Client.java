@@ -2,15 +2,32 @@ package io.github.bolzer.easybill_java_sdk;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.github.bolzer.easybill_java_sdk.contracts.HttpClient;
+import io.github.bolzer.easybill_java_sdk.interceptors.LoggingInterceptorBuilder;
 import io.github.bolzer.easybill_java_sdk.resources.*;
+import java.time.Duration;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
-/** The REST API Client of the SDK. Exposes the different REST API resources as high levels methods. */
+/** The REST API Client of the SDK. Exposes the different REST API resources as high level methods. */
 public final class Client {
+
+    /**
+     * Configuration for the Client. Allows the user to modify the underlying used
+     * OKHttpClient implementation.
+     *
+     * @param callTimeout specifics the timeout as duration for the response of the easybill REST API
+     * @param connectTimeout specifics the timeout as duration for the creation of the connection
+     * @param loggingInterceptorBuilder A builder to create a logging interceptor. Allows the logging of request and response.
+     */
+    public record Config(
+        @NonNull Duration callTimeout,
+        @NonNull Duration connectTimeout,
+        @Nullable LoggingInterceptorBuilder loggingInterceptorBuilder
+    ) {}
 
     /** User-Agent to be used for the HTTP-Header User-Agent. This agent is not customizable.*/
     @NonNull
-    public static final String USER_AGENT = "easybill-JAVA-REST-SDK-0.4.0";
+    public static final String USER_AGENT = "easybill-JAVA-REST-SDK-0.5.0";
 
     /**
      * The base url for the easybill REST API. It's intentional left non-final as this URL is overwritten
@@ -30,6 +47,11 @@ public final class Client {
     /** @param bearerToken the bearer token for authentication purpose*/
     public Client(@NonNull String bearerToken) {
         this.httpClient = new HttpClientImpl(bearerToken);
+    }
+
+    /** @param bearerToken the bearer token for authentication purpose*/
+    public Client(@NonNull String bearerToken, @NonNull Config config) {
+        this.httpClient = new HttpClientImpl(bearerToken, config);
     }
 
     /** Returns an object that holds methods to interact with the document endpoint of the easybill REST API */

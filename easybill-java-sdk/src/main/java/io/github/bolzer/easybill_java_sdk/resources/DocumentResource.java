@@ -43,7 +43,12 @@ public final class DocumentResource {
             );
     }
 
-    /** Fetch a document explicit by its id */
+    /**
+     * Method to fetch a document explicit by its id
+     * @param documentId The id of the document to be fetched
+     * @return Returns the referenced document
+     * @throws EasybillRestException Base Exception to the SDK. EasybillRestClientException | EasybillRestServerException
+     */
     public @NonNull Document fetchDocument(@Positive long documentId)
         throws EasybillRestException {
         return this.httpClient.requestGetJson(

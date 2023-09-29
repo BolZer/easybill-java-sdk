@@ -1,11 +1,9 @@
 # easybill-java-sdk
-[![Generic badge](https://img.shields.io/badge/Version-0.4.0-important.svg)]()
+[![Generic badge](https://img.shields.io/badge/Version-0.5.0-important.svg)]()
 [![Generic badge](https://img.shields.io/badge/JDK-17-important.svg)]()
 
 
 `easybill-java-sdk` is a library to work with the easybill REST API (https://www.easybill.de/api/) written in Java.
-
-### *Active Developing ongoing!*
 
 ## Installation
 This library is available on [Maven Central](https://central.sonatype.com/artifact/io.github.bolzer/easybill-java-sdk)
@@ -14,7 +12,7 @@ This library is available on [Maven Central](https://central.sonatype.com/artifa
 
 #### Kotlin DSL 
 ```
-implementation("io.github.bolzer:easybill-java-sdk:0.4.0")
+implementation("io.github.bolzer:easybill-java-sdk:0.5.0")
 ```
 
 ### Maven
@@ -22,12 +20,15 @@ implementation("io.github.bolzer:easybill-java-sdk:0.4.0")
 <dependency>
     <groupId>io.github.bolzer</groupId>
     <artifactId>easybill-java-sdk</artifactId>
-    <version>0.4.0</version>
+    <version>0.5.0</version>
 </dependency>
 ```
 
 ## Motivation
-*coming soon*
+It's easy to generate clients from OpenAPI documentations. However, those clients often are lacking or straight up not good.
+This holds true in case of lacking / incorrect OpenAPI documentation. In the case of the easybill REST API the documentation
+is such case. Therefore, a client generated from the documentation will have its issues. This project is an attempt to mitigate
+the developer experience with the easybill REST API for JAVA developers.
 
 ## Examples
 ```java
@@ -78,14 +79,17 @@ public final class TestClass {
 }
 ```
 
-
-*more coming soon* 
+Take a look at the tests directory. There are several testcases which may help you with basic usage of
+the SDK.
 
 ## Roadmap
-*coming soon*
+- Dedicated methods for invoice creation[^1].
+- Adding the Versions Resource[^2]
+
+[^1]: Currently there is only one method to create a document and the type of the document in the JSON-Payload will dictate which fields are required and which fields are relevant. As an example a document of the type LETTER won't have positions. 
+[^2]: The resource versions is currently not included in the SDK as this resource is for a feature which is not yet available for the public.
 
 ## Issues
-*coming soon* 
-
-## Contributions
-*coming soon* 
+You have issues with the SDK: feature request, something is missing or simplify not correct, please be not afraid
+to open up an issue here on github. There is currently no formalized way to open an issue, so just fire 
+away.

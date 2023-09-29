@@ -10,6 +10,7 @@ import io.github.bolzer.easybill_java_sdk.contracts.HttpClient;
 import io.github.bolzer.easybill_java_sdk.contracts.QueryRequest;
 import io.github.bolzer.easybill_java_sdk.exceptions.*;
 import io.github.bolzer.easybill_java_sdk.interceptors.BearerAuthorizationInterceptor;
+import io.github.bolzer.easybill_java_sdk.interceptors.LoggingInterceptorBuilder;
 import io.github.bolzer.easybill_java_sdk.interceptors.UserAgentInterceptor;
 import java.io.File;
 import java.io.IOException;
@@ -45,6 +46,28 @@ final class HttpClientImpl implements HttpClient {
                 .addInterceptor(new BearerAuthorizationInterceptor(apiToken))
                 .callTimeout(Duration.ofSeconds(30))
                 .connectTimeout(Duration.ofSeconds(30))
+                .build();
+    }
+
+    public HttpClientImpl(
+        @NonNull String apiToken,
+        Client.@NonNull Config config
+    ) {
+        final OkHttpClient.Builder client = new OkHttpClient.Builder()
+            .followRedirects(false)
+            .addInterceptor(new UserAgentInterceptor(Client.USER_AGENT))
+            .addInterceptor(new BearerAuthorizationInterceptor(apiToken));
+
+        LoggingInterceptorBuilder builder = config.loggingInterceptorBuilder();
+
+        if (!Objects.isNull(builder)) {
+            client.addInterceptor(builder.build());
+        }
+
+        this.okHttpClient =
+            client
+                .callTimeout(config.callTimeout())
+                .connectTimeout(config.connectTimeout())
                 .build();
     }
 

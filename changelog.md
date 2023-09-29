@@ -1,5 +1,9 @@
 ## Changelog
 
+**2023-09-20 - Version 0.5.0**
+- Add config object to set things like timeout, connect timeout and request/response logging
+- Add more comments / documentation
+
 **2023-09-15 - Version 0.4.0**
 - Add documentation to document resource
 - Remove FBWarning Annotations
