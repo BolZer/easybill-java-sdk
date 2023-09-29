@@ -58,8 +58,7 @@ final class HttpClientImpl implements HttpClient {
             .addInterceptor(new UserAgentInterceptor(Client.USER_AGENT))
             .addInterceptor(new BearerAuthorizationInterceptor(apiToken));
 
-        LoggingInterceptorBuilder builder =
-            config.getLoggingInterceptorBuilder();
+        LoggingInterceptorBuilder builder = config.loggingInterceptorBuilder();
 
         if (!Objects.isNull(builder)) {
             client.addInterceptor(builder.build());
@@ -67,8 +66,8 @@ final class HttpClientImpl implements HttpClient {
 
         this.okHttpClient =
             client
-                .callTimeout(config.getCallTimeout())
-                .connectTimeout(config.getConnectTimeout())
+                .callTimeout(config.callTimeout())
+                .connectTimeout(config.connectTimeout())
                 .build();
     }
 

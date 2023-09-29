@@ -11,39 +11,19 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 /** The REST API Client of the SDK. Exposes the different REST API resources as high level methods. */
 public final class Client {
 
-    public static final class Config {
-
-        @NonNull
-        private final Duration callTimeout;
-
-        @NonNull
-        private final Duration connectTimeout;
-
-        @Nullable
-        private final LoggingInterceptorBuilder loggingInterceptorBuilder;
-
-        public Config(
-            @NonNull Duration callTimeout,
-            @NonNull Duration connectTimeout,
-            @Nullable LoggingInterceptorBuilder loggingInterceptorBuilder
-        ) {
-            this.callTimeout = callTimeout;
-            this.connectTimeout = connectTimeout;
-            this.loggingInterceptorBuilder = loggingInterceptorBuilder;
-        }
-
-        public @NonNull Duration getCallTimeout() {
-            return callTimeout;
-        }
-
-        public @NonNull Duration getConnectTimeout() {
-            return connectTimeout;
-        }
-
-        public @Nullable LoggingInterceptorBuilder getLoggingInterceptorBuilder() {
-            return loggingInterceptorBuilder;
-        }
-    }
+    /**
+     * Configuration for the Client. Allows the user to modify the underlying used
+     * OKHttpClient implementation.
+     *
+     * @param callTimeout specifics the timeout as duration for the response of the easybill REST API
+     * @param connectTimeout specifics the timeout as duration for the creation of the connection
+     * @param loggingInterceptorBuilder A builder to create a logging interceptor. Allows the logging of request and response.
+     */
+    public record Config(
+        @NonNull Duration callTimeout,
+        @NonNull Duration connectTimeout,
+        @Nullable LoggingInterceptorBuilder loggingInterceptorBuilder
+    ) {}
 
     /** User-Agent to be used for the HTTP-Header User-Agent. This agent is not customizable.*/
     @NonNull
