@@ -25,7 +25,7 @@ implementation("io.github.bolzer:easybill-java-sdk:0.5.0")
 ```
 
 ## Motivation
-It's easy to generate clients from OpenAPI documentations. However, those clients often are lacking or straight up not good.
+It's easy to generate clients from OpenAPI documentations. However, those clients are often lacking in some areas.
 This holds true in case of lacking / incorrect OpenAPI documentation. In the case of the easybill REST API the documentation
 is such case. Therefore, a client generated from the documentation will have its issues. This project is an attempt to mitigate
 the developer experience with the easybill REST API for JAVA developers.
